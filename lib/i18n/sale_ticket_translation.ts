@@ -1,0 +1,395 @@
+// sale_ticket_translation.ts
+
+export const saleTicketTranslations = {
+    en: {
+        loading: "Processing...",
+        header: {
+            back: "Back",
+            title: "Sale Cart"
+        },
+        pos: {
+            store_name: "My Awesome Store",
+            address: "Baghdad, Iraq",
+            phone: "Tel: 0750-XXX-XXXX",
+            ticket_no: "Ticket No",
+            date: "Date",
+            cashier: "Cashier",
+            customer: "Customer",
+            guest: "Guest",
+            item: "Item",
+            qty: "Qty",
+            price: "Price",
+            total: "Total",
+            subtotal: "Subtotal",
+            discount: "Discount",
+            grand_total: "GRAND TOTAL",
+            thank_you: "Thank you for your visit!",
+            website: "www.mystore.com"
+        },
+        print: {
+            credit_invoice: "Credit Invoice",
+            invoice_no: "Invoice #",
+            bill_to: "Bill To",
+            added_to_debt: "Added to Old Debt",
+            total_balance: "Total Customer Balance",
+            paid_now: "Paid Now",
+            net_total: "Net Invoice Total"
+        },
+        topbar: {
+            scan_placeholder: "Scan",
+            add_btn: "Add",
+            guest_customer: "GUEST CUSTOMER",
+            balance: "Bal:",
+            select_customer: "Select Customer",
+            search_placeholder: "Search by name or phone...",
+            no_customers: "No customers found.",
+            close: "Close",
+            // Unit types
+            unit_single: "Single",
+            unit_packet: "Packet",
+            unit_wholesale: "Wholesale",
+            // Alerts
+            alert_item_not_found: "Item not found!",
+            alert_stock_error: "Failed to add item (Check stock).",
+            alert_scan_error: "Error processing scan.",
+            unit_kg: "Kg",
+            unit_m: "Meter",
+            unit_cm: "Cm"
+        },
+        table: {
+            empty_cart: "Cart Empty",
+            remove_confirm: "Remove item?",
+            headers: {
+                hash: "#",
+                desc: "Item Description",
+                unit: "Unit",
+                price: "Price",
+                qty: "Qty",
+                total: "Total",
+                del: "Del"
+            }
+        },
+        totals: {
+            items_count: "Items:",
+            discount: "Disc:",
+            total_payable: "Total Payable",
+            btn_cash: "Pay Cash",
+            btn_cash_a4: "Cash A4",
+            btn_cash_pos: "Cash POS",
+            btn_loan: "Loan (Credit)",
+            btn_installment: "Installment",
+            alert_select_cust: "Please select a customer first!",
+            alert_payment_fail: "Payment Failed",
+            label_date: "Date",
+            label_customer: "Customer",
+            label_ticket_id: "Ticket ID",
+            label_subtotal: "Subtotal",
+        },
+        dialogs: {
+            loan: {
+                title: "Credit Sale (Loan)",
+                total_invoice: "Total Invoice",
+                down_payment: "Down Payment (Optional)",
+                remaining_debt: "Remaining Debt",
+                confirm: "Confirm",
+                print: "Print"
+            },
+            installment: {
+                title: "Installment Plan",
+                base: "Base",
+                fee_summary: "+ Fee",
+                total: "Total",
+                down_payment: "Down Payment",
+                added_fee: "Added Fee",
+                count: "Count (Months)",
+                interval: "Interval (Days)",
+                start_date: "Start Date",
+                btn_save: "Save",
+                btn_save_print: "Save & Print"
+            }
+        },
+        catalog: {
+            label_default_qty: "Default Qty (Increment)",
+            quick_access: "Quick Access",
+            manage: "Manage",
+            done: "Done",
+            add_item: "Add Item",
+            add_cat: "Add Cat",
+            no_cats: "No Categories",
+            select_cat: "Select a category",
+            // Modals & Prompts
+            prompt_cat_name: "New Category Name:",
+            prompt_delete_cat: "Delete category and all its items?",
+            prompt_delete_shortcut: "Delete shortcut?",
+            modal_new_item: "New Item Shortcut",
+            upload_image: "Upload Image",
+            label_name: "Name",
+            label_barcode: "Barcode",
+            label_unit: "Sale Unit Type",
+            label_price: "Display Price",
+            btn_cancel: "CANCEL",
+            btn_save: "SAVE"
+        }
+    },
+    ar: {
+        loading: "جاري المعالجة...",
+        header: {
+            back: "رجوع",
+            title: "سلة المبيعات"
+        },
+        pos: {
+            store_name: "متجري الرائع",
+            address: "بغداد، العراق",
+            phone: "هاتف: XXXX-XXX-0750",
+            ticket_no: "رقم الوصل",
+            date: "التاريخ",
+            cashier: "الكاشير",
+            customer: "الزبون",
+            guest: "زبون عام",
+            item: "المادة",
+            qty: "العدد",
+            price: "السعر",
+            total: "المجموع",
+            subtotal: "المجموع الفرعي",
+            discount: "الخصم",
+            grand_total: "المجموع الكلي",
+            thank_you: "شكراً لزيارتكم!",
+            website: "www.mystore.com"
+        },
+        print: {
+            credit_invoice: "فاتورة بيع آجل",
+            invoice_no: "رقم الفاتورة",
+            bill_to: "السيد / السادة",
+            added_to_debt: "أضيف على الحساب السابق",
+            total_balance: "مجموع الرصيد الحالي",
+            paid_now: "واصل نقدي",
+            net_total: "صافي الفاتورة"
+        },
+        topbar: {
+            scan_placeholder: "مسح",
+            add_btn: "إضافة",
+            guest_customer: "زبون عام",
+            balance: "رصيد:",
+            select_customer: "اختر زبون",
+            search_placeholder: "بحث بالاسم أو الهاتف...",
+            no_customers: "لا يوجد زبائن.",
+            close: "إغلاق",
+            // Unit types
+            unit_single: "مفرد",
+            unit_packet: "باكيت",
+            unit_wholesale: "جملة",
+            // Alerts
+            alert_item_not_found: "المادة غير موجودة!",
+            alert_stock_error: "فشل إضافة المادة (تأكد من المخزون).",
+            alert_scan_error: "خطأ في المسح الضوئي.",
+            unit_kg: "كغم",
+            unit_m: "متر",
+            unit_cm: "سم"
+        },
+        table: {
+            empty_cart: "السلة فارغة",
+            remove_confirm: "حذف المادة؟",
+            headers: {
+                hash: "#",
+                desc: "وصف المادة",
+                unit: "الوحدة",
+                price: "السعر",
+                qty: "العدد",
+                total: "الإجمالي",
+                del: "حذف"
+            }
+        },
+        totals: {
+            items_count: "المواد:",
+            discount: "خصم:",
+            total_payable: "المبلغ المستحق",
+            btn_cash: "دفع نقدي",
+            btn_cash_a4: "نقدي A4",
+            btn_cash_pos: "نقدي وصل",
+            btn_loan: "آجل (دين)",
+            btn_installment: "أقساط",
+            alert_select_cust: "يرجى اختيار زبون أولاً!",
+            alert_payment_fail: "فشلت عملية الدفع",
+            label_date: "التاريخ",
+            label_customer: "الزبون",
+            label_ticket_id: "رقم الوصل",
+            label_subtotal: "المجموع الفرعي",
+        },
+        dialogs: {
+            loan: {
+                title: "بيع آجل (دين)",
+                total_invoice: "إجمالي القائمة",
+                down_payment: "دفعة أولى (اختياري)",
+                remaining_debt: "الدين المتبقي",
+                confirm: "تأكيد",
+                print: "طباعة"
+            },
+            installment: {
+                title: "خطة التقسيط",
+                base: "الأساس",
+                fee_summary: "+ فائدة",
+                total: "المجموع",
+                down_payment: "الدفعة الأولى",
+                added_fee: "فائدة مضافة",
+                count: "العدد (أشهر)",
+                interval: "المدة (أيام)",
+                start_date: "تاريخ البدء",
+                btn_save: "حفظ",
+                btn_save_print: "حفظ وطباعة"
+            }
+
+        },
+        catalog: {
+            label_default_qty: "الكمية الافتراضية (الزيادة)",
+            quick_access: "وصول سريع",
+            manage: "إدارة",
+            done: "تم",
+            add_item: "إضافة مادة",
+            add_cat: "إضافة قسم",
+            no_cats: "لا توجد أقسام",
+            select_cat: "اختر قسماً",
+            // Modals & Prompts
+            prompt_cat_name: "اسم القسم الجديد:",
+            prompt_delete_cat: "حذف القسم وجميع مواده؟",
+            prompt_delete_shortcut: "حذف الاختصار؟",
+            modal_new_item: "اختصار مادة جديد",
+            upload_image: "رفع صورة",
+            label_name: "الاسم",
+            label_barcode: "الباركود",
+            label_unit: "نوع الوحدة",
+            label_price: "سعر العرض",
+            btn_cancel: "إلغاء",
+            btn_save: "حفظ"
+        }
+    },
+    ku: {
+        loading: "جێبەجێکردن...",
+        header: {
+            back: "گەڕانەوە",
+            title: "سەبەتەی فرۆشتن"
+        },
+        pos: {
+            store_name: "مارکێتا من",
+            address: "بەغدا، عێراق",
+            phone: "مۆبایل: XXXX-XXX-0750",
+            ticket_no: "ژمارەی وەسڵ",
+            date: "بەروار",
+            cashier: "کاشێر",
+            customer: "کڕیار",
+            guest: "کڕیاری گشتی",
+            item: "کاڵا",
+            qty: "ژمارە",
+            price: "نرخ",
+            total: "کۆ",
+            subtotal: "کۆی سەرەتایی",
+            discount: "داشکاندن",
+            grand_total: "کۆی گشتی",
+            thank_you: "سوپاس بۆ سەردانەکەتان!",
+            website: "www.mystore.com"
+        },
+        print: {
+            credit_invoice: "پسووڵەی قەرز",
+            invoice_no: "ژمارەی پسووڵە",
+            bill_to: "بەڕێز",
+            added_to_debt: "زیادکرا بۆ قەرزی کۆن",
+            total_balance: "کۆی گشتی قەرز",
+            paid_now: "بڕی وەرگیراو",
+            net_total: "کۆی گشتی پسووڵە"
+        },
+        topbar: {
+            scan_placeholder: "لێدان",
+            add_btn: "زیادکردن",
+            guest_customer: "کڕیاری گشتی",
+            balance: "باڵانس:",
+            select_customer: "کڕیار دیاریبکە",
+            search_placeholder: "گەڕان بە ناو یان ژمارە...",
+            no_customers: "کڕیار نەدۆزرایەوە.",
+            close: "داخستن",
+            // Unit types
+            unit_single: "تاک",
+            unit_packet: "پاکەت",
+            unit_wholesale: "کۆ",
+            // Alerts
+            alert_item_not_found: "کاڵا نەدۆزرایەوە!",
+            alert_stock_error: "زیادکردن سەرکەوتوو نەبوو (عەمار پشکێنە).",
+            alert_scan_error: "هەڵە لە سکانکردن.",
+            unit_kg: "کیلۆ",
+            unit_m: "مەتر",
+            unit_cm: "سانتیم"
+        },
+        table: {
+            empty_cart: "سەبەتە بەتاڵە",
+            remove_confirm: "سڕینەوەی کاڵا؟",
+            headers: {
+                hash: "#",
+                desc: "ناوى کاڵا",
+                unit: "یەکە",
+                price: "نرخ",
+                qty: "عدد",
+                total: "کۆی گشتی",
+                del: "سڕینەوە"
+            }
+        },
+        totals: {
+            items_count: "کاڵاکان:",
+            discount: "داشکاندن:",
+            total_payable: "کۆی گشتی بۆ دان",
+            btn_cash: "نەقد (کاش)",
+            btn_cash_a4: "نەقد A4",
+            btn_cash_pos: "نەقد وەسڵ",
+            btn_loan: "قەرز (لەسەر حسێب)",
+            btn_installment: "قیست",
+            alert_select_cust: "تکایە سەرەتا کڕیار دیاریبکە!",
+            alert_payment_fail: "پارەدان سەرکەوتوو نەبوو",
+            label_date: "بەروار",
+            label_customer: "کڕیار",
+            label_ticket_id: "ژمارەی پسووڵە",
+            label_subtotal: "کۆی گشتی",
+        },
+        dialogs: {
+            loan: {
+                title: "فرۆشتنی قەرز",
+                total_invoice: "کۆی پسووڵە",
+                down_payment: "پێشەکی (ئارەزوومەندانە)",
+                remaining_debt: "قەرزی ماوە",
+                confirm: "تەواو",
+                print: "چاپکردن"
+            },
+            installment: {
+                title: "پلانی قیست",
+                base: "بنەڕەت",
+                fee_summary: "+ زیادە",
+                total: "کۆی گشتی",
+                down_payment: "پێشەکی",
+                added_fee: "پارەی زیادکراو",
+                count: "ژمارە (مانگ)",
+                interval: "ماوە (ڕۆژ)",
+                start_date: "بەرواری دەستپێکردن",
+                btn_save: "پاشەکەوت",
+                btn_save_print: "پاشەکەوت و چاپ"
+            }
+        },
+        catalog: {
+            label_default_qty: "بڕی بنەڕەتی (زیادکردن)",
+            quick_access: "دەستگەیشتنی خێرا",
+            manage: "ڕێکخستن",
+            done: "تەواو",
+            add_item: "زیادکردنی کاڵا",
+            add_cat: "زیادکردنی بەش",
+            no_cats: "هیچ بەشێک نییە",
+            select_cat: "بەشێک هەڵبژێرە",
+            // Modals & Prompts
+            prompt_cat_name: "ناوی بەشی نوێ:",
+            prompt_delete_cat: "سڕینەوەی بەش و هەموو کاڵاکانی؟",
+            prompt_delete_shortcut: "سڕینەوەی کورتکراوە؟",
+            modal_new_item: "کورتکراوەی کاڵای نوێ",
+            upload_image: "وێنە باربکە",
+            label_name: "ناو",
+            label_barcode: "بارکۆد",
+            label_unit: "جۆری یەکە",
+            label_price: "نرخی پیشاندان",
+            btn_cancel: "پاشگەزبوونەوە",
+            btn_save: "پاشەکەوت"
+        }
+    }
+};

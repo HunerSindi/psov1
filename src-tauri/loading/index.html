@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Starting App...</title>
+    <style>
+      body {
+        background: #f3f4f6;
+        color: #1f2937;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-family: system-ui, sans-serif;
+      }
+      .spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid #e5e7eb;
+        border-top: 5px solid #3b82f6;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 20px;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+    <script>
+      // 1. Use 127.0.0.1 (More reliable on Windows than 'localhost')
+      const targetUrl = "http://127.0.0.1:3000";
+
+      function checkServer() {
+        fetch(targetUrl)
+          .then((res) => {
+            // 2. If we get ANY response, the server is up. Redirect.
+            console.log("Server found! Redirecting...");
+            window.location.replace(targetUrl);
+          })
+          .catch((err) => {
+            // 3. If failed, log it and try again
+            console.log("Server not ready yet:", err);
+            setTimeout(checkServer, 500);
+          });
+      }
+
+      // Start checking
+      setTimeout(checkServer, 500);
+    </script>
+  </head>
+  <body>
+    <div class="spinner"></div>
+    <h2 style="margin-top: 10px">Loading System...</h2>
+  </body>
+</html>

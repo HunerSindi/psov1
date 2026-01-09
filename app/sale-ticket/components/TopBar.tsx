@@ -1,0 +1,294 @@
+"use client";
+
+import { useState, useEffect, useRef } from "react"; // <--- Added useRef
+import { SaleResponse, addItemToSale, setSaleCustomer } from "@/lib/api/sale-ticket";
+import { getCustomers, Customer } from "@/lib/api/customers";
+import { getItemByBarcode } from "@/lib/api/items";
+import { User, Search, X, Check } from "lucide-react";
+import { useSettings } from "@/lib/contexts/SettingsContext";
+
+interface Props {
+    saleData: SaleResponse | null;
+    onRefresh: () => void;
+}
+
+export default function TopBar({ saleData, onRefresh }: Props) {
+    const { t } = useSettings();
+
+    // --- 1. Create a Ref for the Barcode Input ---
+    const barcodeInputRef = useRef<HTMLInputElement>(null);
+
+    const [barcode, setBarcode] = useState("");
+    const [selectedUnit, setSelectedUnit] = useState<"single" | "packet" | "wholesale">("single");
+    const [showCustModal, setShowCustModal] = useState(false);
+    const [customers, setCustomers] = useState<Customer[]>([]);
+    const [custSearch, setCustSearch] = useState("");
+
+    // --- 2. Auto-Focus Logic ---
+    const focusBarcodeInput = () => {
+        // Small timeout ensures the DOM is ready and modals are fully closed
+        setTimeout(() => {
+            if (barcodeInputRef.current) {
+                barcodeInputRef.current.focus();
+            }
+        }, 100);
+    };
+
+    // Trigger focus whenever saleData changes (ticket switch, item added, etc.)
+    // or when the customer modal closes.
+    useEffect(() => {
+        if (!showCustModal) {
+            focusBarcodeInput();
+        }
+    }, [saleData, showCustModal]);
+    // ---------------------------
+
+    const getUnitLabel = (unit: string) => {
+        if (unit === "packet") return t("sale_ticket.topbar.unit_packet");
+        if (unit === "wholesale") return t("sale_ticket.topbar.unit_wholesale");
+        return t("sale_ticket.topbar.unit_single");
+    };
+
+    const handleScan = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        // Keep focus on input immediately after pressing enter
+        focusBarcodeInput();
+
+        if (!saleData || !barcode) return;
+
+        try {
+            const item = await getItemByBarcode(barcode);
+
+            if (!item) {
+                alert(t("sale_ticket.topbar.alert_item_not_found"));
+                setBarcode(""); // Clear invalid barcode
+                focusBarcodeInput(); // Refocus
+                return;
+            }
+
+            const allowedType = item.unit_type || "single";
+
+            if (selectedUnit === "wholesale" && !allowedType.includes("wholesale")) {
+                alert(`Error: Item is "${allowedType}". Cannot sell as Wholesale.`);
+                setBarcode("");
+                focusBarcodeInput();
+                return;
+            }
+
+            if (selectedUnit === "packet" && !allowedType.includes("packet")) {
+                alert(`Error: Item is "${allowedType}". Cannot sell as Packet.`);
+                setBarcode("");
+                focusBarcodeInput();
+                return;
+            }
+
+            let typeToSend = "single";
+            if (selectedUnit === "packet") {
+                typeToSend = "packet";
+            } else if (selectedUnit === "wholesale") {
+                typeToSend = "wholesale";
+            } else {
+                if (["kg", "m", "cm", "liter"].includes(item.unit_type)) {
+                    typeToSend = item.unit_type;
+                } else {
+                    typeToSend = "single";
+                }
+            }
+
+            const success = await addItemToSale(saleData.receipt.id, barcode, typeToSend, 1);
+
+            if (success) {
+                setBarcode("");
+                onRefresh(); // This will trigger the useEffect above to refocus
+            } else {
+                alert(t("sale_ticket.topbar.alert_stock_error"));
+                focusBarcodeInput();
+            }
+
+        } catch (error) {
+            console.error("Scan Error:", error);
+            alert(t("sale_ticket.topbar.alert_scan_error"));
+            focusBarcodeInput();
+        }
+    };
+
+    const fetchCustomers = async (query = "") => {
+        try {
+            const res = await getCustomers(query, 1, 50);
+            if (res && res.data) {
+                setCustomers(res.data);
+            } else {
+                setCustomers([]);
+            }
+        } catch (error) {
+            console.error("Failed to load customers", error);
+            setCustomers([]);
+        }
+    };
+
+    useEffect(() => {
+        if (showCustModal) {
+            const timer = setTimeout(() => {
+                fetchCustomers(custSearch);
+            }, 300);
+            return () => clearTimeout(timer);
+        }
+    }, [showCustModal, custSearch]);
+
+    const handleCustomerSelect = async (custId: number) => {
+        if (!saleData) return;
+        await setSaleCustomer(saleData.receipt.id, custId);
+        setShowCustModal(false); // This triggers the useEffect to refocus input
+        onRefresh();
+    };
+
+    return (
+        <div className="flex flex-col md:flex-row gap-2 items-start md:items-center justify-between">
+
+            <form onSubmit={handleScan} className="flex flex-1 w-full gap-2 items-end">
+                <div className="flex bg-gray-200   border-gray-400 gap-2 shrink-0">
+                    <button
+                        type="button"
+                        onClick={() => { setSelectedUnit("single"); focusBarcodeInput(); }}
+                        className={`px-6 p-[5px] text-[16px] font-bold uppercase border transition-colors ${selectedUnit === "single"
+                            ? "bg-black text-white border-black"
+                            : "bg-white text-gray-600 border-gray-300 hover:bg-gray-100"
+                            }`}
+                    >
+                        {t("sale_ticket.topbar.unit_single")}
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => { setSelectedUnit("packet"); focusBarcodeInput(); }}
+                        className={`px-6 p-[5px] text-[16px] font-bold uppercase border transition-colors ${selectedUnit === "packet"
+                            ? "bg-black text-white border-black"
+                            : "bg-white text-gray-600 border-gray-300 hover:bg-gray-100"
+                            }`}
+                    >
+                        {t("sale_ticket.topbar.unit_packet")}
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => { setSelectedUnit("wholesale"); focusBarcodeInput(); }}
+                        className={`px-6 p-[5px] text-[16px] font-bold uppercase border transition-colors ${selectedUnit === "wholesale"
+                            ? "bg-black text-white border-black"
+                            : "bg-white text-gray-600 border-gray-300 hover:bg-gray-100"
+                            }`}
+                    >
+                        {t("sale_ticket.topbar.unit_wholesale")}
+                    </button>
+                </div>
+
+                <div className="flex-1 flex gap-0">
+                    <input
+                        ref={barcodeInputRef} // <--- 3. Attach Ref here
+                        autoFocus
+                        type="text"
+                        placeholder={`${t("sale_ticket.topbar.scan_placeholder")} ${getUnitLabel(selectedUnit)}...`}
+                        value={barcode}
+                        onChange={e => setBarcode(e.target.value)}
+                        // Optional: Ensure focus stays if clicked out, or simply rely on the useEffects
+                        onBlur={() => {
+                            // If you want AGGRESSIVE focus (always forces back unless modal is open):
+                            // if (!showCustModal) setTimeout(focusBarcodeInput, 200); 
+                        }}
+                        className="flex-1 h-9 border border-gray-400 px-3 text-lg font-mono outline-none focus:border-blue-600 focus:bg-blue-50 rounded-none placeholder:text-sm"
+                    />
+                    <button
+                        type="submit"
+                        className="bg-blue-700 text-white px-5 h-9 font-bold text-sm uppercase hover:bg-blue-800 border border-blue-900 rounded-none"
+                    >
+                        {t("sale_ticket.topbar.add_btn")}
+                    </button>
+                </div>
+            </form>
+
+            <div className="flex items-center gap-2 w-full md:w-auto bg-gray-100 border border-gray-300 p-1 px-2">
+                <div className="text-right leading-tight min-w-[100px]">
+                    {saleData?.customer ? (
+                        <>
+                            <div className="font-bold text-xs text-gray-800 uppercase">{saleData.customer.name}</div>
+                            <div className={`text-[10px] font-mono font-bold ${(saleData.customer.balance || 0) > 0 ? "text-red-600" : "text-green-600"
+                                }`}>
+                                {t("sale_ticket.topbar.balance")} {(saleData.customer.balance || 0).toLocaleString()}
+                            </div>
+                        </>
+                    ) : (
+                        <div className="text-xs text-gray-400 italic font-bold">
+                            {t("sale_ticket.topbar.guest_customer")}
+                        </div>
+                    )}
+                </div>
+                <button
+                    onClick={() => { setCustSearch(""); setShowCustModal(true); }}
+                    className="h-8 w-8 bg-white border border-gray-400 flex items-center justify-center text-gray-600 hover:text-black hover:border-black transition-colors"
+                    title={t("sale_ticket.topbar.select_customer")}
+                >
+                    <User size={18} />
+                </button>
+            </div>
+
+            {/* CUSTOMER MODAL (Unchanged logic) */}
+            {showCustModal && (
+                <div className="fixed inset-0 bg-black/50 z-[9999] flex items-center justify-center p-4">
+                    <div className="bg-white border-2 border-gray-600 w-full max-w-md flex flex-col shadow-xl h-[500px]">
+                        <div className="bg-gray-200 border-b border-gray-400 p-3 flex justify-between items-center shrink-0">
+                            <h3 className="font-bold text-sm uppercase text-gray-800">
+                                {t("sale_ticket.topbar.select_customer")}
+                            </h3>
+                            <button onClick={() => setShowCustModal(false)} className="text-gray-500 hover:text-red-600">
+                                <X size={20} />
+                            </button>
+                        </div>
+                        <div className="p-2 border-b border-gray-300 bg-gray-50 shrink-0">
+                            <div className="flex items-center bg-white border border-gray-400 px-2 h-9">
+                                <Search size={16} className="text-gray-400 mr-2" />
+                                <input
+                                    autoFocus
+                                    type="text"
+                                    placeholder={t("sale_ticket.topbar.search_placeholder")}
+                                    value={custSearch}
+                                    onChange={e => setCustSearch(e.target.value)}
+                                    className="flex-1 outline-none text-sm"
+                                />
+                            </div>
+                        </div>
+                        <div className="flex-1 overflow-y-auto p-2 bg-white">
+                            {customers.length === 0 ? (
+                                <div className="text-center p-4 text-gray-400 text-sm italic">
+                                    {t("sale_ticket.topbar.no_customers")}
+                                </div>
+                            ) : (
+                                <div className="space-y-1">
+                                    {customers.map(c => (
+                                        <button
+                                            key={c.id}
+                                            onClick={() => handleCustomerSelect(c.id!)}
+                                            className={`w-full text-left p-2 border border-gray-200 hover:bg-blue-50 hover:border-blue-300 flex justify-between items-center group ${saleData?.customer?.id === c.id ? "bg-blue-50 border-blue-500" : ""
+                                                }`}
+                                        >
+                                            <div>
+                                                <div className="font-bold text-sm text-gray-800">{c.name}</div>
+                                                <div className="text-xs text-gray-500">{c.phone}</div>
+                                            </div>
+                                            {saleData?.customer?.id === c.id && <Check size={16} className="text-blue-600" />}
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                        <div className="p-2 bg-gray-100 border-t border-gray-300 text-right shrink-0">
+                            <button
+                                onClick={() => setShowCustModal(false)}
+                                className="bg-white border border-gray-400 px-4 py-1 text-xs font-bold uppercase hover:bg-gray-200"
+                            >
+                                {t("sale_ticket.topbar.close")}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+}

@@ -130,6 +130,7 @@ export default function SaleTicketPage() {
               <ItemTable
                 saleData={saleData}
                 onRefresh={() => refreshTicket()}
+
               />
             </div>
             <div className="bg-white border border-gray-400 p-1 h-fit shrink-0">

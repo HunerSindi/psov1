@@ -201,5 +201,72 @@ export const companyTranslations = {
             btn_processing: "جێبەجێکردن...",
             btn_cancel: "پاشگەزبوونەوە"
         }
+    },
+    ku_bd: {
+        title: "لیستا کۆمپانیان",
+        statement_title: "کەشفێ حیسابی",
+        back: "زڤرین",
+        table: {
+            id: "#",
+            name: "ناڤێ کۆمپانیێ",
+            phone: "موبایل",
+            address: "ناڤنیشان",
+            balance: "باڵانس",
+            actions: "کریار",
+            loading: "بارکرن...",
+            no_data: "هیچ کۆمپانیایەک نەهاتە دیتن.",
+            no_history: "هیچ مامەڵەیەک نەهاتە دیتن.",
+            loading_history: "بارکرنا مێژوویێ...",
+            total_pages: "کومێ لاپەران",
+            page: "لاپەرێ",
+            of: "ژ",
+            prev: "بەرێ",
+            next: "پاشێ",
+            // Transaction Columns
+            date: "بەروار",
+            description: "روونکردن",
+            debit: "قەرزدار (+)",
+            credit: "بێ قەرز (-)"
+        },
+        filters: {
+            search_label: "لێگەریان ب ناڤ / ژمارە",
+            search_placeholder: "بنڤیسە بۆ لێگەریانێ...",
+            status_label: "رەوشا باڵانسی",
+            all: "هەمی کۆمپانیا",
+            debt: "قەرزدار (ئەم دڤێین)",
+            credit: "بێ قەرز (وان دڤێت)"
+        },
+        actions: {
+            sidebar_title: "کریار",
+            add_company: "زیادکرنا کۆمپانیێ",
+            print_list: "چاپکرنا لیستێ"
+        },
+        form: {
+            create_title: "کۆمپانیا نوی",
+            edit_title: "دەستکاریا کۆمپانیێ",
+            label_name: "ناڤێ کۆمپانیێ",
+            label_phone: "موبایل",
+            label_address: "ناڤنیشان",
+            label_balance: "باڵانسێ دەستپێکێ",
+            balance_hint: "موجەب = وان دڤێت. سالب = ئەم دڤێین.",
+            btn_cancel: "پەشیمانبوون",
+            btn_save: "هەڵگرتن",
+            btn_saving: "هەڵگرتن..."
+        },
+        dialogs: {
+            delete_confirm: "ژێبرنا ڤێ کۆمپانیێ؟",
+            pay_title: "زیادکرنا پارەی / رێکخستنا باڵانسی",
+            pay_label_amount: "بڕێ پارەی",
+            pay_label_desc: "تێبینی / روونکردن",
+            pay_btn: "تەمامکرنا پارەدانێ",
+            transaction_with: "مامەڵە دگەڵ",
+            type_receive: "وەرگرتنا کاش",
+            type_debt: "زیادکرنا قەرزی",
+            placeholder_receive: "نموونە: پارێ وەرگرتی",
+            placeholder_debt: "نموونە: وەسڵێ ژمارە 123",
+            btn_confirm: "تەمام",
+            btn_processing: "جێبەجێکرن...",
+            btn_cancel: "پەشیمانبوون"
+        }
     }
 };

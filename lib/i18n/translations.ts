@@ -1,4 +1,3 @@
-// translations.ts
 import { addItemTranslations } from "./add_item_translations";
 import { analyticTranslations } from "./analytic_translations";
 import { analyticsGeneralTranslations } from "./analytics_general_translations";
@@ -21,9 +20,11 @@ import { returnHistoryTranslations } from "./return_history_translations";
 import { returnsTranslations } from "./returns_translations";
 import { saleTicketTranslations } from "./sale_ticket_translation";
 import { salesHistoryTranslations } from "./sales_history_translations";
+import { stockValuationTranslations } from "./stock_valuation_translations";
 import { usersTranslations } from "./users_translations";
 
-export type Language = "en" | "ar" | "ku";
+// 1. Updated Language Type
+export type Language = "en" | "ar" | "ku" | "ku_bd";
 
 export const translations = {
   en: {
@@ -45,14 +46,10 @@ export const translations = {
     success: "Settings saved successfully!",
     printer_connection: "Printer Connection",
     printer_ip: "Printer IP Address",
-    printer_ip_help:
-      "Enter the Local IP address of your ESC/POS Thermal Printer.",
-
+    printer_ip_help: "Enter the Local IP address of your ESC/POS Thermal Printer.",
     connection_type: "Connection Type",
     printer_name: "USB Printer Name",
-    printer_name_help:
-      "Enter the exact name of the printer as found in Windows Control Panel/Settings.",
-    // Imported Section
+    printer_name_help: "Enter the exact name of the printer as found in Windows Control Panel/Settings.",
     define_item: defineItemTranslations.en,
     kg_helper: kgHelperTranslations.en,
     length_helper: lengthHelperTranslations.en,
@@ -76,6 +73,7 @@ export const translations = {
     permissions: permissionsTranslations.en,
     damaged_items: damagedItemsTranslations.en,
     company_return: companyReturnTranslations.en,
+    stock_valuation: stockValuationTranslations.en,
   },
   ar: {
     title: "نقطة البيع",
@@ -99,9 +97,7 @@ export const translations = {
     printer_ip_help: "أدخل عنوان IP المحلي لطابعة الإيصالات الحرارية.",
     connection_type: "نوع الاتصال",
     printer_name: "اسم طابعة USB",
-    printer_name_help:
-      "أدخل الاسم الدقيق للطابعة كما هو موجود في إعدادات ويندوز.",
-    // Imported Section
+    printer_name_help: "أدخل الاسم الدقيق للطابعة كما هو موجود في إعدادات ويندوز.",
     define_item: defineItemTranslations.ar,
     kg_helper: kgHelperTranslations.ar,
     length_helper: lengthHelperTranslations.ar,
@@ -125,6 +121,7 @@ export const translations = {
     permissions: permissionsTranslations.ar,
     damaged_items: damagedItemsTranslations.ar,
     company_return: companyReturnTranslations.ar,
+    stock_valuation: stockValuationTranslations.ar,
   },
   ku: {
     title: "خاڵی فرۆشتن",
@@ -148,9 +145,7 @@ export const translations = {
     printer_ip: "ناونیشانی IP پرێنتەر",
     printer_ip_help: "ناونیشانی IP لۆکاڵی پرێنتەری پسوولە بنووسە.",
     printer_name: "ناوی پرێنتەری USB",
-    printer_name_help:
-      "ناوی تەواوی پرێنتەرەکە بنووسە وەک ئەوەی لە ڕێکخستنەکانی ویندۆز هەیە.",
-    // Imported Section
+    printer_name_help: "ناوی تەواوی پرێنتەرەکە بنووسە وەک ئەوەی لە ڕێکخستنەکانی ویندۆز هەیە.",
     define_item: defineItemTranslations.ku,
     kg_helper: kgHelperTranslations.ku,
     length_helper: lengthHelperTranslations.ku,
@@ -174,5 +169,55 @@ export const translations = {
     permissions: permissionsTranslations.ku,
     damaged_items: damagedItemsTranslations.ku,
     company_return: companyReturnTranslations.ku,
+    stock_valuation: stockValuationTranslations.ku,
+  },
+  ku_bd: {
+    title: "خالا فرۆشتنێ",
+    dashboard: "داشبۆرد",
+    settings: "رێخستن",
+    save: "پاراستنا گوهۆڕینان",
+    upload: "بارکرنا وێنەی",
+    remove: "سڕینەڤە",
+    general: "رێخستنێن گشتی",
+    printing: "حەزژێکرنێن چاپێ",
+    assets: "کەرەستێن پسوولێ",
+    app_lang: "زمانێ بەرنامەی",
+    print_a4_lang: "زمانێ پسوولەیا A4",
+    print_pos_lang: "زمانێ وەسلا کاشێری",
+    header_a4: "سەرپەرێ A4",
+    footer_a4: "بنپەرێ A4",
+    header_pos: "سەرپەرێ کاشێری",
+    success: "رێخستن ب سەرکەفتیانە هاتنە پاراستن!",
+    printer_connection: "گرێدانا پرێنتەری",
+    connection_type: "جورێ پەیوەندیێ",
+    printer_ip: "ناڤنیشانێ IP یێ پرێنتەری",
+    printer_ip_help: "ناڤنیشانێ IP یێ ناڤخۆ یێ پرێنتەرێ گەرمی بنڤیسە.",
+    printer_name: "ناڤێ پرێنتەرێ USB",
+    printer_name_help: "ناڤێ دروست یێ پرێنتەری بنڤیسە هەروەک د رێخستنێن ویندۆز دا هەی.",
+    // Imported Section using .ku_bd
+    define_item: defineItemTranslations.ku_bd,
+    kg_helper: kgHelperTranslations.ku_bd,
+    length_helper: lengthHelperTranslations.ku_bd,
+    packet_helper: packetHelperTranslations.ku_bd,
+    dashboard_menu: dashboardTranslations.ku_bd,
+    add_item: addItemTranslations.ku_bd,
+    sale_ticket: saleTicketTranslations.ku_bd,
+    sales_history: salesHistoryTranslations.ku_bd,
+    users: usersTranslations.ku_bd,
+    analytics: analyticTranslations.ku_bd,
+    company: companyTranslations.ku_bd,
+    customer: customerTranslations.ku_bd,
+    expense_category: expenseCategoryTranslations.ku_bd,
+    expense: expenseTranslations.ku_bd,
+    inventory: inventoryTranslations.ku_bd,
+    returns: returnsTranslations.ku_bd,
+    return_history: returnHistoryTranslations.ku_bd,
+    developer: developerTranslations.ku_bd,
+    backup: backupTranslations.ku_bd,
+    analytics_general: analyticsGeneralTranslations.ku_bd,
+    permissions: permissionsTranslations.ku_bd,
+    damaged_items: damagedItemsTranslations.ku_bd,
+    company_return: companyReturnTranslations.ku_bd,
+    stock_valuation: stockValuationTranslations.ku_bd,
   },
 };

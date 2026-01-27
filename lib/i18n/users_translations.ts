@@ -114,5 +114,43 @@ export const usersTranslations = {
             btn_saving: "پاشەکەوت دەکرێت...",
             confirm_delete: "دڵنیایت لە سڕینەوەی ئەم کارمەندە؟"
         }
+    },
+    ku_bd: {
+        title: "رێڤەبرنا بەکارهێنەران",
+        back: "زڤرین",
+        table: {
+            id: "#",
+            name: "ناڤ",
+            phone: "موبایل",
+            status: "رەوش",
+            permissions: "دەسهەڵات",
+            actions: "کریار",
+            loading: "بارکرنا بەکارهێنەران...",
+            no_users: "هیچ بەکارهێنەرەک نەهاتە دیتن.",
+            active: "کارا",
+            inactive: "نە کارا",
+            no_access: "چ دەسهەڵات نینن"
+        },
+        sidebar: {
+            management: "رێڤەبرن",
+            add_employee: "زیادکرنا کارمەندی",
+            total_staff: "کومێ کارمەندان",
+            active_inactive_desc: "هەژمارێن کارا و نە کارا"
+        },
+        form: {
+            create_title: "زیادکرنا کارمەندەکێ نوی",
+            edit_title: "دەستکاریا بەکارهێنەری",
+            label_name: "ناڤ",
+            label_phone: "موبایل",
+            label_pin: "کودێ نهێنی (PIN)",
+            pin_hint: "(ڤاڵا بهێلە بۆ مانەوە)",
+            pin_placeholder: "****",
+            account_active: "هەژمار یێ کارایە",
+            access_permissions: "دەسهەڵاتێن گەهشتنێ",
+            btn_cancel: "پەشیمانبوون",
+            btn_save: "هەڵگرتن",
+            btn_saving: "هەڵگرتن...",
+            confirm_delete: "تۆ یێ پشتراستی ژ ژێبرنا ڤی کارمەندی؟"
+        }
     }
 };

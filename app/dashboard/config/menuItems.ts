@@ -153,6 +153,14 @@ export const MENU_ITEMS: MenuItem[] = [
     imageSrc: "/dashboard/analysis.png",
   },
   {
+    transKey: "stock_valuation",
+    href: "/stock-valuation",
+    permission: "stock_valuation",
+    isFinished: true,
+    imageSrc: "/dashboard/stock.png",
+  },
+  // 
+  {
     transKey: "backup",
     href: "/backup",
     permission: "backup",

@@ -2,13 +2,13 @@
 
 import React from "react";
 import { Item } from "../config/types";
-import { Package, Calculator } from "lucide-react";
+import { Package, Calculator, AlertTriangle } from "lucide-react"; // Import Alert Icon
 import { useSettings } from "@/lib/contexts/SettingsContext";
 
 // IMPORT HELPERS
 import PacketHelper from "./PacketHelper/PacketHelper";
 import KgHelper from "./KgHelper/KgHelper";
-import LengthHelper from "./LengthHelper/LengthHelper"; // <-- Import new component
+import LengthHelper from "./LengthHelper/LengthHelper";
 
 interface Props {
     item: Item;
@@ -44,8 +44,11 @@ export default function PricingStock({
     // --- HELPER VISIBILITY LOGIC ---
     const showSingleHelper = ["single", "single-wholesale"].includes(item.unit_type);
     const showKgHelper = item.unit_type === "kg";
-    // Check for length types
     const showLengthHelper = ["cm", "m"].includes(item.unit_type);
+
+    // --- PROFIT CHECK LOGIC ---
+    const isSingleLoss = item.cost_price > item.single_price;
+    const isPacketLoss = showPacket && (item.packet_cost_price > item.packet_price);
 
     const handlePacketChange = (field: keyof Item, value: number) => {
         handleChange(field, value);
@@ -129,7 +132,7 @@ export default function PricingStock({
                                 <input
                                     ref={refs.packetCostRef}
                                     type="number"
-                                    className="w-full h-8 border border-gray-400 px-2 text-sm rounded-none focus:border-blue-600 focus:outline-none bg-white"
+                                    className={`w-full h-8 border px-2 text-sm rounded-none focus:outline-none bg-white ${isPacketLoss ? "border-red-500 text-red-600" : "border-gray-400 focus:border-blue-600"}`}
                                     value={item.packet_cost_price}
                                     onChange={(e) => handlePacketChange("packet_cost_price", Number(e.target.value))}
                                     onKeyDown={(e) => e.key === "Enter" && onEnter("packetCost")}
@@ -151,6 +154,14 @@ export default function PricingStock({
                                 />
                             </div>
                         </div>
+
+                        {/* PACKET LOSS WARNING */}
+                        {isPacketLoss && (
+                            <div className="flex items-center gap-1 mt-1 text-red-600 text-xs font-bold animate-pulse">
+                                <AlertTriangle size={12} />
+                                <span>{t("define_item.warning_loss") || "Warning: Cost is higher than Price!"}</span>
+                            </div>
+                        )}
 
                         {showWholesale && (
                             <div className="mt-4">
@@ -200,7 +211,7 @@ export default function PricingStock({
                             <input
                                 ref={refs.costRef}
                                 type="number"
-                                className="w-full h-8 border border-gray-400 px-2 text-sm rounded-none focus:border-blue-600 focus:outline-none bg-white"
+                                className={`w-full h-8 border px-2 text-sm rounded-none focus:outline-none bg-white ${isSingleLoss ? "border-red-500 text-red-600" : "border-gray-400 focus:border-blue-600"}`}
                                 value={item.cost_price}
                                 onChange={(e) => handleChange("cost_price", Number(e.target.value))}
                                 onKeyDown={(e) => e.key === "Enter" && onEnter("cost")}
@@ -224,6 +235,14 @@ export default function PricingStock({
                                 onFocus={onFocusSelect}
                             />
                         </div>
+
+                        {/* SINGLE LOSS WARNING */}
+                        {isSingleLoss && (
+                            <div className="flex items-center gap-1 mt-[-10px] text-red-600 text-xs font-bold animate-pulse">
+                                <AlertTriangle size={12} />
+                                <span>{t("define_item.warning_loss") || "Warning: Cost is higher than Price!"}</span>
+                            </div>
+                        )}
 
                         {showWholesale && (
                             <div>

@@ -4,14 +4,12 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { translations, Language } from "@/lib/i18n/translations";
 
 // --- 1. TYPE UTILITY FOR DOT NOTATION ---
-// This recursively builds types like "general" | "define_item.title" | "define_item.save_btn"
 type NestedKeyOf<ObjectType extends object> = {
   [Key in keyof ObjectType & (string | number)]: ObjectType[Key] extends object
-    ? `${Key}` | `${Key}.${NestedKeyOf<ObjectType[Key]>}`
-    : `${Key}`;
+  ? `${Key}` | `${Key}.${NestedKeyOf<ObjectType[Key]>}`
+  : `${Key}`;
 }[keyof ObjectType & (string | number)];
 
-// The valid keys based on English translations
 type TranslationKey = NestedKeyOf<typeof translations.en>;
 
 interface Settings {
@@ -22,14 +20,14 @@ interface Settings {
   footerA4: string | null;
   headerPos: string | null;
   printerIp?: string;
-  printerType: "network" | "usb"; // <--- Add this
-  printerName: string; // <--- Add this
+  printerType: "network" | "usb";
+  printerName: string;
 }
 
 interface SettingsContextType {
   settings: Settings;
   updateSettings: (newSettings: Partial<Settings>) => void;
-  t: (key: TranslationKey) => string; // Updated type definition
+  t: (key: TranslationKey) => string;
   dir: "rtl" | "ltr";
 }
 
@@ -46,7 +44,7 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
     footerA4: null,
     headerPos: null,
     printerIp: "",
-    printerType: "network", // <--- Default to network
+    printerType: "network",
     printerName: "",
   });
 
@@ -63,16 +61,14 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem("pos_settings", JSON.stringify(updated));
   };
 
-  // --- 2. UPDATED TRANSLATION HELPER ---
-  // Handles splitting "define_item.title" into ["define_item", "title"] and traversing the object
+  // --- 2. TRANSLATION HELPER ---
   const t = (key: TranslationKey): string => {
     const keys = key.split(".");
     let current: any = translations[settings.appLanguage];
 
     for (const k of keys) {
-      if (current[k] === undefined) {
-        // Fallback to English if translation missing
-        // Optional: remove this fallback block if you don't want it
+      if (!current || current[k] === undefined) {
+        // Fallback to English if translation missing in current language
         let enFallback: any = translations["en"];
         for (const enK of keys) {
           enFallback = enFallback?.[enK];
@@ -85,14 +81,23 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
     return typeof current === "string" ? current : key;
   };
 
-  const dir =
-    settings.appLanguage === "ar" || settings.appLanguage === "ku"
-      ? "rtl"
-      : "ltr";
+  // --- 3. UPDATED DIRECTION LOGIC ---
+  // Added "ku_bd" to the RTL check
+  const isRTL =
+    settings.appLanguage === "ar" ||
+    settings.appLanguage === "ku" ||
+    settings.appLanguage === "ku_bd";
+
+  const dir = isRTL ? "rtl" : "ltr";
 
   return (
     <SettingsContext.Provider value={{ settings, updateSettings, t, dir }}>
-      <div dir={dir} className={dir === "rtl" ? "font-arabic" : "font-sans"}>
+      {/* 
+         Apply the 'rtl' or 'ltr' direction and conditional font classes.
+         Both Kurdish Sorani (ku) and Badini (ku_bd) use Arabic script, 
+         so they use the Arabic font class.
+      */}
+      <div dir={dir} className={isRTL ? "font-arabic" : "font-sans"}>
         {children}
       </div>
     </SettingsContext.Provider>

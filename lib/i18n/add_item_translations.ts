@@ -210,5 +210,79 @@ export const addItemTranslations = {
         print_pkt_whl: "کۆفرۆشی پاکەت",
         print_expire: "بەسەرچوون",
         print_type: "جۆر"
+    },
+    ku_bd: {
+        // Headers & Generals
+        main_title: "وەسڵێت کۆمپانیا",
+        receipt_details_title: "هویرکاریێت وەسڵی",
+        back: "زڤرین",
+        total_amount: "کومێ گشتی",
+        print: "چاپکرن",
+
+        // Company Section
+        company_label: "کۆمپانیا",
+        no_company: "هیچ کۆمپانیایەک نەهاتیە دەستنیشانکرن",
+        change_btn: "گوهارتن",
+        select_btn: "هەڵبژارتن...",
+        amount_label: "بڕ",
+        type_label: "جۆر",
+        cash: "کاش",
+        loan: "قەرز",
+        add_record_btn: "زیادکرن",
+        saving: "هەڵگرتن...",
+        find_company: "لێگەڕیان بۆ کۆمپانیا",
+        filter_placeholder: "لێگەڕیان...",
+        no_results: "هیچ کۆمپانیایەک نەهاتە دیتن.",
+        cancel: "پەشیمانبوون",
+
+        // Receipt List
+        id: "زنجیرە",
+        date: "بەروار",
+        total: "کومێ گشتی",
+        paid: "دانە",
+        action: "کریار",
+        open_btn: "ڤەکرن",
+        loading: "بارکرنا داتایێ...",
+        no_receipts: "هیچ وەسڵەک نینە.",
+        showing_page: "لاپەرە",
+        of: "ژ",
+        prev: "بەرێ",
+        next: "پاشێ",
+        total_items: "ژمارە",
+
+        // Add Item Panel (Scanner)
+        barcode_label: "بارکۆد",
+        scan_placeholder: "لێدان...",
+        item_name_label: "ناڤێ کاڵای",
+        item_not_found: "کاڵا نەهاتە دیتن",
+        ready_to_scan: "ئامادەیە بۆ لێدانێ...",
+        qty_label: "ژمارە",
+        pkt_qty_label: "ژمارا پاکەتا",
+        pkt_cost_label: "تێچوویێ پاکەتێ",
+        pkt_price_label: "فرۆتنا پاکەتێ",
+        pkt_whl_label: "کۆفرۆشییا پاکەتێ",
+        cost_label: "تێچوو",
+        price_label: "نرخ",
+        whl_label: "نرخێ کۆ",
+        expires_label: "بەسەرچوون",
+        add_btn: "زیادکرن",
+
+        // Receipt Items Table
+        items_title: "کاڵایێت وەسڵی",
+        unit_label: "یەکە",
+        no_items_added: "هیچ کاڵایەک نەهاتیە زیادکرن.",
+
+        // Print View Headers
+        print_id: "ز",
+        print_name: "کاڵا",
+        print_qty: "ژمارە",
+        print_pkt_cost: "تێچوویێ پاکەتێ",
+        print_cost: "تێچوو",
+        print_price: "نرخ",
+        print_whl: "کۆ",
+        print_pkt_price: "فرۆتنا پاکەتێ",
+        print_pkt_whl: "کۆفرۆشییا پاکەتێ",
+        print_expire: "بەسەرچوون",
+        print_type: "جۆر"
     }
 };

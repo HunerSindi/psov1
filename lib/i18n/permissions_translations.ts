@@ -111,5 +111,41 @@ export const permissionsTranslations = {
         "sale_ticket.cash_a4": "کردار: فرۆشتنی کاش (A4)",
         "sale_ticket.loan": "کردار: فرۆشتنی قەرز",
         "sale_ticket.installment": "کردار: فرۆشتنی قیست"
+    },
+    ku_bd: {
+        form: {
+            // ... existing ...
+            access_permissions: "مۆڵەتێن دەسەڵاتێ",
+        },
+        permissions: {
+            group_pages: "دەسەڵاتێ پەڕان",
+            group_actions: "کریارێن تایبەت"
+        },
+        // NEW FIELDS
+        company_return: "پەڕە: ڤەگەڕاندنا کۆمپانیان",
+        damaged_item: "پەڕە: کەرەستێن تێکچووی",
+        define_item: "پەڕە: پێناسەکرنا کەرەستان",
+        add_item: "پەڕە: زیادکرنا کۆگەهێ",
+        sale_ticket: "پەڕە: پسوڵا فرۆشتنێ",
+        sale_history: "پەڕە: مێژوویا فرۆشتنێ",
+        users: "پەڕە: ڕێڤەبرنا بەکارهێنەران",
+        inventory: "پەڕە: کۆگەهـ",
+        companies: "پەڕە: کۆمپانی",
+        customers: "پەڕە: کڕیار",
+        categories: "پەڕە: جۆران",
+        expense: "پەڕە: خەرجیان",
+        return_item: "پەڕە: ڤەگەڕاندنا کەرەستان",
+        return_item_history: "پەڕە: مێژوویا ڤەگەڕاندنێ",
+        installments_warning: "پەڕە: ئاگەهدارکرنا قیستان",
+        installments_list: "پەڕە: لیستا قیستان",
+        cashier_report: "پەڕە: ڕاپۆرتا کاشێری",
+        general_report: "پەڕە: ڕاپۆرتا گشتی",
+        backup: "پەڕە: باک ئەپ",
+        settings: "پەڕە: ڕێکخستنان",
+
+        "sale_ticket.cash_pos": "کریار: فرۆشتنا کاش (POS)",
+        "sale_ticket.cash_a4": "کریار: فرۆشتنا کاش (A4)",
+        "sale_ticket.loan": "کریار: فرۆشتنا ب قەڕز",
+        "sale_ticket.installment": "کریار: فرۆشتنا ب قیست"
     }
 };

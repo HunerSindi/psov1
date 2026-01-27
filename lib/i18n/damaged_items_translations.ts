@@ -121,5 +121,46 @@ export const damagedItemsTranslations = {
         dialogs: {
             delete_confirm: "دڵنیایت لە سڕینەوەی ئەم تۆمارە؟"
         }
+    },
+    ku_bd: {
+        title: "کەل و پەلێن تێکچووی / زەرەر",
+        back: "زڤرین",
+        actions: {
+            new_item: "تۆمارکرنا تێکچوونێ",
+            print_list: "چاپکرنا راپۆرتێ",
+            sidebar_title: "کریار"
+        },
+        filters: {
+            search_label: "لێگەریان",
+            search_placeholder: "ناڤێ ماددەی...",
+            start_date: "ژ بەروارا",
+            end_date: "تا بەروارا",
+        },
+        table: {
+            id: "#",
+            item: "ناڤێ ماددەی",
+            user: "ژلایێ",
+            qty: "ژمارە",
+            unit: "یەکە",
+            cost: "نرخێ تێچووی",
+            total_loss: "کومێ زەرەری",
+            reason: "ئەگەر",
+            date: "بەروار",
+            actions: "کریار"
+        },
+        form: {
+            create_title: "تۆمارکرنا تێکچوونەکا نوی",
+            edit_title: "دەستکاری",
+            label_item_id: "کودێ ماددەی",
+            label_qty: "ژمارە",
+            label_unit: "جورێ یەکێ",
+            label_reason: "ئەگەرێ تێکچوونێ",
+            btn_cancel: "پەشیمانبوون",
+            btn_save: "تۆمارکرن",
+            select_unit: "یەکێ هەلبژێرە"
+        },
+        dialogs: {
+            delete_confirm: "تۆ یێ پشتراستی ژ ژێبرنا ڤی تۆماری؟"
+        }
     }
 };

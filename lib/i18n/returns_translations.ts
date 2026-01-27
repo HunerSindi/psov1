@@ -123,5 +123,46 @@ export const returnsTranslations = {
             error: "هەڵە ڕوویدا",
             confirm_delete: "سڕینەوەی ئەم کاڵایە؟"
         }
+    },
+    ku_bd: {
+        title: "ڤەگەراندنا کەلوپەلان",
+        back: "زڤرین",
+        ticket_id: "ژمارەیا پسوولێ",
+        new: "نووی",
+        sidebar: {
+            title: "زێدەکرنا پارچێ",
+            barcode: "بارکۆد / ناڤ",
+            unit: "یەکە",
+            qty: "ژمارە",
+            restock: "زڤراندن بۆ کۆگەهێ؟",
+            btn_add: "زێدەکرن",
+            btn_processing: "د کارکرنێ دایە...",
+            view_history: "دیتنا مێژوویێ",
+            single: "تاک",
+            wholesale: "کۆم",
+            packet: "پاکەت"
+        },
+        table: {
+            id: "#",
+            item: "ناڤێ پارچێ",
+            unit: "یەکە",
+            qty: "ژمارە",
+            price: "نرخێ ڤەگەراندنێ",
+            total: "کۆیا گشتی",
+            stocked: "کۆگەهـ",
+            yes: "بەلێ",
+            no: "نەخێر",
+            empty: "بارکۆدان لێبدە بۆ دەستپێکرنا ڤەگەراندنێ"
+        },
+        footer: {
+            total_items: "کۆیا پارچان",
+            total_refund: "کۆیا پارێ ڤەگەڕای"
+        },
+        alerts: {
+            not_found: "پارچە نەهاتە دیتن!",
+            fail_add: "زێدەکرن سەرنەکەفت.",
+            error: "خەلەتیەک هەبوو د ڤەگەراندنێ دا",
+            confirm_delete: "سڕینەڤەیا ڤێ پارچێ؟"
+        }
     }
 };

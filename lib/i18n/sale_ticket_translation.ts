@@ -391,5 +391,132 @@ export const saleTicketTranslations = {
             btn_cancel: "پاشگەزبوونەوە",
             btn_save: "پاشەکەوت"
         }
+    },
+    ku_bd: {
+        loading: "د کارکرنێ دایە...",
+        header: {
+            back: "زڤرین",
+            title: "سەبەتەیا فرۆشتنێ"
+        },
+        pos: {
+            store_name: "مارکێتێ من",
+            address: "بەغدا، عیراق",
+            phone: "تەلەفۆن: XXXX-XXX-0750",
+            ticket_no: "ژمارەیا پسوولێ",
+            date: "رێکەفت",
+            cashier: "کاشێر",
+            customer: "کڕیار",
+            guest: "کڕیارێ گشتی",
+            item: "پارچە",
+            qty: "ژمارە",
+            price: "نرخ",
+            total: "کۆ",
+            subtotal: "کۆیا سەرەتایی",
+            discount: "داشکاندن",
+            grand_total: "کۆیا گشتی",
+            thank_you: "سوپاس بۆ سەرەدانا وە!",
+            website: "www.mystore.com"
+        },
+        print: {
+            credit_invoice: "پسوولەیا قەرزی",
+            invoice_no: "ژمارەیا پسوولێ #",
+            bill_to: "بۆ بەڕێز",
+            added_to_debt: "زێدەکر بۆ قەرزی کۆن",
+            total_balance: "کۆیا گشتی یا باڵانسی",
+            paid_now: "پارێ دای (واصل)",
+            net_total: "کۆیا صافی یا پسوولێ"
+        },
+        topbar: {
+            scan_placeholder: "لێدان (سکان)",
+            add_btn: "زێدەکرن",
+            guest_customer: "کڕیارێ گشتی",
+            balance: "باڵانس:",
+            select_customer: "کڕیاری دیاریکە",
+            search_placeholder: "لێگەڕیان ب ناڤ یان موبایل...",
+            no_customers: "چ کڕیار نەهاتنە دیتن.",
+            close: "گرتن",
+            unit_single: "تاک",
+            unit_packet: "پاکەت",
+            unit_wholesale: "کۆم",
+            alert_item_not_found: "پارچە نەهاتە دیتن!",
+            alert_stock_error: "زێدەکرن سەرنەکەفت (کۆگەهێ پشکنین بکە).",
+            alert_scan_error: "خەلەتیەک هەبوو د سکانێ دا.",
+            unit_kg: "کیلۆ",
+            unit_m: "مەتر",
+            unit_cm: "سانتیم"
+        },
+        table: {
+            empty_cart: "سەبەتە یا بەتاڵە",
+            remove_confirm: "سڕینەڤەیا پارچێ؟",
+            headers: {
+                hash: "#",
+                desc: "وەسفا پارچێ",
+                unit: "یەکە",
+                price: "نرخ",
+                qty: "ژمارە",
+                total: "کۆیا گشتی",
+                del: "سڕینەڤە"
+            }
+        },
+        totals: {
+            items_count: "پارچە:",
+            discount: "داشکاندن:",
+            total_payable: "کۆیا گشتی بۆ دانێ",
+            btn_cash: "نەقد (کاش)",
+            btn_cash_a4: "نەقد A4",
+            btn_cash_pos: "نەقد پسوولە",
+            btn_loan: "قەرز",
+            btn_installment: "قیست",
+            alert_select_cust: "تکایە ل دەسپێکێ کڕیاری دیاریکە!",
+            alert_payment_fail: "پارەدان سەرنەکەفت",
+            label_date: "رێکەفت",
+            label_customer: "کڕیار",
+            label_ticket_id: "ژمارەیا پسوولێ",
+            label_subtotal: "کۆیا گشتی",
+        },
+        dialogs: {
+            loan: {
+                title: "فرۆشتنا ب قەرز",
+                total_invoice: "کۆیا پسوولێ",
+                down_payment: "پێشەکی (ئارەزوومەندانە)",
+                remaining_debt: "قەرزی مای",
+                confirm: "پشتڕاستکرن",
+                print: "چاپکرن"
+            },
+            installment: {
+                title: "پلانا قیستان",
+                base: "بنەڕەت",
+                fee_summary: "+ زێدەهی",
+                total: "کۆیا گشتی",
+                down_payment: "پێشەکی",
+                added_fee: "پارێ زێدەکری",
+                count: "ژمارە (هەیڤ)",
+                interval: "ماوە (رۆژ)",
+                start_date: "رێکەفتا دەسپێکرنێ",
+                btn_save: "پاراستن",
+                btn_save_print: "پاراستن و چاپکرن"
+            }
+        },
+        catalog: {
+            label_default_qty: "ژمارەیا بنەڕەت (زێدەکرن)",
+            quick_access: "دەستەگەهشتنا بلەز",
+            manage: "رێخستن",
+            done: "تەمام",
+            add_item: "زێدەکرنا پارچێ",
+            add_cat: "زێدەکرنا بەشێ",
+            no_cats: "چ بەش نینن",
+            select_cat: "بەشەکی هەلبژێرە",
+            prompt_cat_name: "ناڤێ بەشێ نووی:",
+            prompt_delete_cat: "سڕینەڤەیا بەشێ و هەمی پارچان؟",
+            prompt_delete_shortcut: "سڕینەڤەیا کورتکرنێ؟",
+            modal_new_item: "کورتکرنا پارچەیا نووی",
+            upload_image: "بارکرنا وێنەی",
+            label_name: "ناڤ",
+            label_barcode: "بارکۆد",
+            label_unit: "جورێ یەکێ",
+            label_price: "نرخێ نیشاندانێ",
+            btn_cancel: "پاشگەزبۆنەڤە",
+            btn_save: "پاراستن"
+        }
     }
 };

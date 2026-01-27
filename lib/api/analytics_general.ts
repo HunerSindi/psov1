@@ -1,28 +1,32 @@
 const API_URL = "http://127.0.0.1:8081";
 
-// --- Types based on your JSON response ---
+// --- New Types based on updated JSON response ---
 
-export interface GeneralCosts {
-    cogs: number;
+export interface CostsBreakdown {
     discounts_given: number;
+    gross_cogs: number;
+    net_cogs: number;
     operating_expenses: number;
+    returned_cogs: number;
 }
 
-export interface GeneralProfit {
+export interface ProfitSummary {
     gross_profit: number;
     net_profit: number;
 }
 
-export interface GeneralRevenue {
+export interface RevenueBreakdown {
+    gross_sales: number;
     installment_fees: number;
-    sales_revenue: number;
-    total_revenue: number;
+    loan_sales: number;
+    net_revenue: number;
+    refunds: number;
 }
 
 export interface GeneralData {
-    costs: GeneralCosts;
-    profit: GeneralProfit;
-    revenue: GeneralRevenue;
+    costs_breakdown: CostsBreakdown;
+    profit_summary: ProfitSummary;
+    revenue_breakdown: RevenueBreakdown;
     total_orders: number;
 }
 

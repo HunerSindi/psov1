@@ -104,5 +104,40 @@ export const analyticTranslations = {
             print: "چاپکردنی ڕاپۆرت",
             net_cash_desc: "صافی پارەی دەست بۆ ماوەی دیاریکراو"
         }
+    },
+    ku_bd: {
+        title: "شیکاریا کارمەندان",
+        back: "زڤرین",
+        filters: {
+            from: "ژ بەروارا",
+            to: "بۆ بەروارا",
+            filter: "دروستکرن",
+            reset: "ژێبرن"
+        },
+        table: {
+            user: "ناڤێ کارمەندی",
+            receipts: "وەسڵ",
+            sales: "فرۆشتن",
+            collected: "وەرگرتی",
+            discount: "داشکاندن",
+            refunds: "زڤرین",
+            refunded_amount: "پارێ زڤری",
+            expenses: "خەرجی",
+            net_cash: "صافیێ دەستی",
+            totals: "کومێ گشتی",
+            no_data: "هیچ داتایەک نەهاتە دیتن بۆ ڤێ ماوەیێ.",
+            loading: "ل هیڤیێ بە..."
+        },
+        print: {
+            report_title: "راپۆرتا ئەدایێ کارمەندان",
+            generated_on: "بەروارێ دروستکرنێ",
+            period: "ماوە",
+            net_total: "کومێ صافیێ پارەی"
+        },
+        actions: {
+            title: "کریار",
+            print: "چاپکرنا راپۆرتێ",
+            net_cash_desc: "صافیێ پارێ دەستی بۆ ماوێ دیاریکری"
+        }
     }
 };

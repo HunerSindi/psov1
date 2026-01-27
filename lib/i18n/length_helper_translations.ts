@@ -21,5 +21,12 @@ export const lengthHelperTranslations = {
         total_length: "درێژی گشتی",
         total_price: "نرخی گشتی",
         auto_calc_note: "* هەژمارکردنی نرخی تێچوو (نرخ / درێژی)",
+    },
+    ku_bd: {
+        enable_m: "کاراکرنا حاسیبا مەتری",
+        enable_cm: "کاراکرنا حاسیبا سەنتیمەتری",
+        total_length: "درێژیا گشتی",
+        total_price: "نرخێ گشتی",
+        auto_calc_note: "* هەژمارکرنا نرخێ تێچووی (نرخ / درێژی)",
     }
 };

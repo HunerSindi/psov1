@@ -127,5 +127,47 @@ export const inventoryTranslations = {
             page_info: "زانیاری پەڕە",
             confirm_delete: "دڵنیایت لە سڕینەوەی ئەم ماددەیە؟"
         }
+    },
+    ku_bd: {
+        title: "رێڤەبرنا کۆگەهێ (مەخزەن)",
+        back: "زڤرین",
+        table: {
+            id: "#",
+            barcode: "بارکۆد",
+            actions: "کریار",
+            name: "ناڤ",
+            unit: "یەکە",
+            cost: "تێچوو",
+            sell_price: "نرخێ تاک",
+            whl_price: "نرخێ کۆ",
+            pkt_price: "نرخێ پاکەت",
+            stock: "هەژمار",
+            expiry: "بەسەرچوون",
+            loading: "بارکرنا کۆگەهێ...",
+            no_data: "هیچ کاڵایەک نەهاتە دیتن.",
+            page: "لاپەرێ",
+            of: "ژ",
+            prev: "بەرێ",
+            next: "پاشێ",
+            total_pages: "کومێ لاپەران",
+            print_title: "راپۆرتا کۆگەهێ",
+            items_loaded: "کاڵایێن بارکری",
+            viewing_page: "نوکە تەماشاکەرا لاپەرێ"
+        },
+        filters: {
+            search_label: "لێگەریان ل کاڵا / بارکۆد",
+            search_placeholder: "بنڤیسە بۆ لێگەریانێ...",
+            sort_label: "رێزبەندی ل دویڤ",
+            sort_default: "یێ سەرەکی (کێمترین هەژمار)",
+            sort_high_stock: "زۆرترین هەژمار",
+            sort_exp_soon: "نێزیکترین بەسەرچوون",
+            sort_exp_late: "دویرترین بەسەرچوون"
+        },
+        actions: {
+            reports_title: "راپۆرت",
+            print_list: "چاپکرنا لیستێ",
+            page_info: "زانیاریێن لاپەرێ",
+            confirm_delete: "تۆ یێ پشتراستی ژ ژێبرنا ڤی ماددەی؟"
+        }
     }
 };

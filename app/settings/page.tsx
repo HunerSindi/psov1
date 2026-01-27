@@ -45,7 +45,9 @@ export default function SettingsPage() {
                 >
                   <option value="en">English</option>
                   <option value="ar">العربية (Arabic)</option>
-                  <option value="ku">کوردی (Kurdish)</option>
+                  <option value="ku">کوردی (sorani)</option>
+                  <option value="ku_bd">کوردی (badini)</option>
+
                 </select>
               </div>
             </div>

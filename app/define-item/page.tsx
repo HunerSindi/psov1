@@ -38,7 +38,7 @@ const INITIAL_STATE: Item = {
 
 export default function DefineItemPage() {
     const { t, settings } = useSettings();
-    const isRtl = settings.appLanguage === 'ar' || settings.appLanguage === 'ku';
+    const isRtl = settings.appLanguage === 'ar' || settings.appLanguage === 'ku' || settings.appLanguage === 'ku_bd';
 
     // 2. GET URL PARAMS
     const searchParams = useSearchParams();

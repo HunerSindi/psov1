@@ -204,5 +204,73 @@ export const customerTranslations = {
             btn_confirm: "تەواو",
             btn_wait: "چاوەڕوانبە..."
         }
+    },
+    ku_bd: {
+        title: "رێڤەبرنا کڕیاران",
+        ledger_title: "دەفتەرا کڕیاری",
+        back: "زڤرین",
+        account: "هەژمار",
+        table: {
+            id: "#",
+            name: "ناڤ",
+            nickname: "نازناڤ",
+            phone: "موبایل",
+            status: "رەوش",
+            balance: "باڵانس",
+            actions: "کریار",
+            address: "ناڤنیشان",
+            active: "کارا",
+            inactive: "نە کارا",
+            loading: "بارکرن...",
+            no_data: "هیچ کڕیارەک نەهاتە دیتن.",
+            page: "لاپەرێ",
+            of: "ژ",
+            prev: "بەرێ",
+            next: "پاشێ",
+            total_pages: "کومێ لاپەران",
+            // History Table
+            date: "بەروار",
+            desc: "روونکردن",
+            added: "زیادکری (+)",
+            paid: "دای (-)",
+            total_balance: "کومێ گشتی یێ باڵانسی"
+        },
+        filters: {
+            search_label: "لێگەریان",
+            search_placeholder: "ناڤ، نازناڤ، موبایل...",
+            min_debt: "کێمترین قەرز",
+            max_debt: "زۆرترین قەرز",
+            sort_by: "رێزبەندی ل دویڤ",
+            newest: "نویترین",
+            oldest: "کەڤنترین"
+        },
+        actions: {
+            sidebar_title: "کریار",
+            new_customer: "کڕیارێ نوی",
+            print_list: "چاپکرنا لیستێ"
+        },
+        form: {
+            create_title: "کڕیارێ نوی",
+            edit_title: "دەستکاریا کڕیاری",
+            label_name: "ناڤ",
+            label_nickname: "نازناڤ",
+            label_phone: "موبایل",
+            label_address: "ناڤنیشان",
+            label_balance: "باڵانسێ دەستپێکێ",
+            label_active: "کارا",
+            btn_cancel: "پەشیمانبوون",
+            btn_save: "هەڵگرتن"
+        },
+        dialogs: {
+            delete_confirm: "ژێبرنا کڕیاری؟",
+            transaction_with: "مامەڵە دگەڵ",
+            type_receive: "وەرگرتنا پارەی",
+            type_debt: "زیادکرنا قەرزی",
+            label_amount: "بڕێ پارەی",
+            label_note: "تێبینی",
+            placeholder_note: "ب دڵێ خۆ...",
+            btn_confirm: "تەمام",
+            btn_wait: "ل هیڤیێ بە..."
+        }
     }
 };

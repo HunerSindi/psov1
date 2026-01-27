@@ -18,5 +18,11 @@ export const kgHelperTranslations = {
         total_weight: "کێشی گشتی (کگم)",
         total_price: "نرخی گشتی",
         auto_calc_note: "* هەژمارکردنی نرخی تێچوو (نرخ / کێش)",
+    },
+    ku_bd: {
+        enable_calculator: "کاراکرنا حاسیبا کێشی",
+        total_weight: "کێشێ گشتی (کگم)",
+        total_price: "نرخێ گشتی",
+        auto_calc_note: "* هەژمارکرنا نرخێ تێچووی (نرخ / کێش)",
     }
 };

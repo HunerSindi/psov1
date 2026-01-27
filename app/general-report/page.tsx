@@ -70,7 +70,7 @@ export default function GeneralReportPage() {
                             className="w-full flex items-center justify-center gap-2 bg-black text-white py-3 font-bold hover:bg-gray-800 border border-black transition-colors shadow-sm active:scale-95"
                         >
                             <Printer size={18} />
-                            {t("analytics_general.actions.print")}
+                            {t("analytics_general.actions.print") || "Print Report"}
                         </button>
                     </div>
                 </div>

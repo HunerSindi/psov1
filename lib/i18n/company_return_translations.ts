@@ -122,5 +122,46 @@ export const companyReturnTranslations = {
             unit_price: "نرخی تاک",
             total: "کۆ"
         }
+    },
+    ku_bd: {
+        title: "زڤرینێت کۆمپانیا",
+        back: "زڤرین",
+        details_title: "هویرکاریێت پسوڵا زڤراندنێ",
+        actions: {
+            create: "دروستکرنا پسوڵێ",
+            print: "چاپکرنا لیستێ",
+            add_item: "زیادکرنا کاڵای",
+            delete: "ژێبرن"
+        },
+        filters: {
+            company: "کۆمپانیا",
+            sort: "رێزبەندی"
+        },
+        form: {
+            select_company: "کۆمپانیا هەلبژێرە",
+            deduct: "لێدەرکرن ژ باڵانسی؟",
+            note: "تێبینی / ئەگەر",
+            note_placeholder: "بۆ نموونە: بەسەرچوون...",
+            create_btn: "دروستکرن",
+            scan_placeholder: "لێدانا بارکۆدی...",
+            item_name: "ناڤێ کاڵای",
+            qty: "ژمارە",
+            unit: "یەکە",
+            price: "نرخێ زڤراندنێ",
+            add_btn: "زیادکرن"
+        },
+        table: {
+            id: "#",
+            company: "کۆمپانیا",
+            user: "بەکارهێنەر",
+            amount: "کومێ گشتی",
+            deduct: "لێدەرکرن؟",
+            note: "تێبینی",
+            date: "بەروار",
+            actions: "کریار",
+            item: "کاڵا",
+            unit_price: "نرخێ تاک",
+            total: "کۆ"
+        }
     }
 };

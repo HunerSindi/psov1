@@ -78,5 +78,31 @@ export const expenseCategoryTranslations = {
             btn_saving: "پاشەکەوت دەکرێت...",
             delete_confirm: "دڵنیایت لە سڕینەوەی ئەم جۆرە؟"
         }
+    },
+    ku_bd: {
+        title: "رێڤەبرنا جۆران",
+        back: "خەرجی",
+        table: {
+            id: "#",
+            name: "ناڤێ جۆری",
+            actions: "کریار",
+            loading: "بارکرن...",
+            no_data: "هیچ جۆرەک نەهاتیە پێناسەکرن.",
+            print_header: "لیستا جۆرێن خەرجیان"
+        },
+        actions: {
+            print: "چاپکرنا لیستێ",
+            add_new: "+ زیادکرنا نوی"
+        },
+        form: {
+            create_title: "جۆرێ نوی",
+            edit_title: "دەستکاریا جۆری",
+            label_name: "ناڤ:",
+            placeholder_name: "ناڤی بنڤیسە...",
+            btn_cancel: "پەشیمانبوون",
+            btn_save: "هەڵگرتن",
+            btn_saving: "هەڵگرتن...",
+            delete_confirm: "تۆ یێ پشتراستی ژ ژێبرنا ڤی جۆری؟"
+        }
     }
 };

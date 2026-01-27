@@ -150,5 +150,55 @@ export const returnHistoryTranslations = {
             total_refund: "کۆی پارەی گەڕاوە:",
             print_receipt_title: "وەسڵی گەڕانەوە"
         }
+    },
+    ku_bd: {
+        title: "مێژوویا ڤەگەراندنێ",
+        back: "زڤرین",
+        table: {
+            id: "#",
+            date: "رێکەفت",
+            employee: "کارمەند",
+            note: "تێبینی",
+            refund: "کۆیا ڤەگەراندنێ",
+            view: "دیتن",
+            loading: "بارکرن...",
+            no_records: "چ تۆمارێن ڤەگەراندنێ نینن.",
+            records: "تۆمار",
+            prev: "بەرێ",
+            next: "پاش",
+            unknown: "نەنیاس"
+        },
+        filters: {
+            search_label: "لێگەڕیان ل دویڤ کارمەندی:",
+            search_placeholder: "ناڤی بنڤیسە..."
+        },
+        actions: {
+            reports_title: "راپۆرت",
+            print_list: "چاپکرنا لیستی",
+            page_total: "کۆیا پەڕێ",
+            visible_rows: "تەنێ رێزکێن دیار"
+        },
+        print: {
+            header_title: "راپۆرتا ڤەگەراندنان",
+            page_refund: "کۆیا ڤەگەراندنا پەڕێ:"
+        },
+        detail: {
+            title: "هویرکاتیێن ڤەگەراندنێ",
+            loading: "بارکرنا هویرکاتیان...",
+            created_date: "رێکەفتا دروستکرنێ",
+            processed_by: "ژ لایێ",
+            note_label: "تێبینی",
+            no_notes: "چ تێبینی نینن.",
+            items_desc: "وەسفا پارچێ",
+            unit: "یەکە",
+            qty: "ژمارە",
+            price: "نرخ",
+            total: "کۆیا گشتی",
+            restock: "زڤراندن بۆ کۆگەهێ",
+            yes: "بەلێ",
+            no: "نەخێر",
+            total_refund: "کۆیا کوژمێ ڤەگەراندنێ:",
+            print_receipt_title: "وەسلا ڤەگەراندنێ"
+        }
     }
 };

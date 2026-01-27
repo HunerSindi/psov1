@@ -20,5 +20,12 @@ export const packetHelperTranslations = {
         units_per_box: "ژمارە لە کارتۆندا",
         box_count: "ژمارەی کارتۆن",
         auto_update_note: "* نوێکردنەوەی نرخی تێچوو و ژمارە بە شێوەی خۆکار",
+    },
+    ku_bd: {
+        enable_calculator: "کاراکرنا حاسیبا کارتۆنی",
+        box_cost: "تێچوویا کارتۆنی",
+        units_per_box: "ژمارە د کارتۆنێ دا",
+        box_count: "ژمارا کارتۆنان",
+        auto_update_note: "* نویکرنا نرخێ تێچووی و ژمارێ ب شێوەیەکێ ئوتۆماتیکی",
     }
 };

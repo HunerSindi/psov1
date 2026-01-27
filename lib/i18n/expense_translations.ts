@@ -159,5 +159,58 @@ export const expenseTranslations = {
             btn_saving: "پاشەکەوت دەکرێت...",
             delete_confirm: "دڵنیایت لە سڕینەوەی ئەم خەرجییە؟"
         }
+    },
+    ku_bd: {
+        title: "رێڤەبرنا خەرجیان",
+        back: "زڤرین",
+        table: {
+            id: "#",
+            date: "بەروار",
+            category: "جۆر",
+            desc: "روونکردن",
+            user: "بەکارهێنەر",
+            amount: "بڕێ پارەی",
+            actions: "کریار",
+            loading: "بارکرن...",
+            no_records: "هیچ تۆمارەک نەهاتە دیتن.",
+            show: "نیشاندان:",
+            page: "لاپەرێ",
+            of: "ژ",
+            prev: "بەرێ",
+            next: "پاشێ",
+            print_title: "راپۆرتا خەرجیێ",
+            print_period: "ماوە:",
+            start: "دەستپێک",
+            now: "نوکە",
+            total_expenses: "کومێ خەرجیان:"
+        },
+        filters: {
+            start_date: "بەروارێ دەستپێکرنێ",
+            end_date: "بەروارێ دوماهیێ",
+            search_label: "روونکردن / بڕێ پارەی",
+            search_placeholder: "لێگەریان...",
+            btn_filter: "لێگەریان",
+            btn_clear: "ژێبرن"
+        },
+        actions: {
+            sidebar_title: "راپۆرت",
+            print_list: "چاپکرنا لیستێ",
+            page_total: "کومێ ڤێ لاپەرێ",
+            visible_rows: "تەنێ رێزێن دیار",
+            add_new: "+ خەرجیێ نوی"
+        },
+        form: {
+            create_title: "تۆمارکرنا خەرجیەکا نوی",
+            edit_title: "دەستکاریا خەرجیێ",
+            label_category: "جۆر",
+            select_category: "-- جۆرەکی هەڵبژێرە --",
+            label_amount: "بڕێ پارەی",
+            label_desc: "روونکردن",
+            placeholder_desc: "هویرکاریان بنڤیسە...",
+            btn_cancel: "پەشیمانبوون",
+            btn_save: "هەڵگرتن",
+            btn_saving: "هەڵگرتن...",
+            delete_confirm: "تۆ یێ پشتراستی ژ ژێبرنا ڤێ خەرجیێ؟"
+        }
     }
 };

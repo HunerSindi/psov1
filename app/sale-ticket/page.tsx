@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { openTicket, SaleResponse } from "@/lib/api/sale-ticket";
-import { sendReceiptToPrinter } from "@/lib/utils/printerService"; // <--- IMPORT 1
+import { sendReceiptToPrinter } from "@/lib/utils/printerService";
 
 // Components
 import TicketSelector from "./components/TicketSelector";
-import TopBar from "./components/TopBar";
+import TopBar, { TopBarRef } from "./components/TopBar";
 import ItemTable from "./components/ItemTable";
 import TotalsSection from "./components/TotalsSection";
 import SaleCartHeader from "./components/SaleCartHeader";
@@ -20,10 +20,15 @@ import PrintInstallment from "./components/print/PrintInstallment";
 import PrintLoanPOS, { POS_LOAN_ID } from "./components/print/PrintLoanPOS";
 
 export default function SaleTicketPage() {
+  const topBarRef = useRef<TopBarRef>(null);
   const [currentTicket, setCurrentTicket] = useState(1);
   const [saleData, setSaleData] = useState<SaleResponse | null>(null);
   const [printData, setPrintData] = useState<SaleResponse | null>(null);
   const [loading, setLoading] = useState(false);
+
+  const refocusBarcode = useCallback(() => {
+    topBarRef.current?.focusBarcode?.();
+  }, []);
 
   // Hardcoded for now, or get from localStorage
   const PRINTER_IP = "192.168.123.100";
@@ -106,7 +111,7 @@ export default function SaleTicketPage() {
         <div>
           <SaleCartHeader />
           <div className="bg-white border-b border-gray-400 p-1 shadow-none z-10">
-            <TopBar saleData={saleData} onRefresh={() => refreshTicket()} />
+            <TopBar ref={topBarRef} saleData={saleData} onRefresh={() => refreshTicket()} />
           </div>
         </div>
 
@@ -146,7 +151,9 @@ export default function SaleTicketPage() {
           <div className="flex-1 flex flex-col gap-1 bg-white border border-gray-400 p-0 h-full shadow-sm">
             <LocalCatalog
               saleId={saleData?.receipt.id}
-              onRefresh={() => refreshTicket()}
+              onRefresh={() => { refreshTicket(); refocusBarcode(); }}
+              onRefocusBarcode={refocusBarcode}
+              ticketTotalIqd={saleData?.receipt.final_amount ?? 0}
             />
           </div>
         </div>

@@ -27,7 +27,8 @@ export async function getInventory(
     search: string,
     page: number,
     limit: number,
-    sort_by: string
+    sort_by: string,
+    is_lose?: boolean
 ): Promise<InventoryResponse | null> {
     try {
         const params = new URLSearchParams({
@@ -36,6 +37,9 @@ export async function getInventory(
             page_size: limit.toString(),
             sort_by
         });
+        if (is_lose !== undefined) {
+            params.set("is_lose", is_lose ? "true" : "false");
+        }
 
         const res = await fetch(`${API_BASE}/items?${params.toString()}`, {
             cache: 'no-store'

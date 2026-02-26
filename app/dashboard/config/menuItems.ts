@@ -103,6 +103,20 @@ export const MENU_ITEMS: MenuItem[] = [
     imageSrc: "/dashboard/return-history.png",
   },
   {
+    transKey: "refund_invoice",
+    href: "/refund-invoice",
+    permission: "refund_invoice",
+    isFinished: true,
+    imageSrc: "/dashboard/return-box.png",
+  },
+  {
+    transKey: "refund_invoice_history",
+    href: "/refund-invoice/history",
+    permission: "refund_invoice_history",
+    isFinished: true,
+    imageSrc: "/dashboard/return-history.png",
+  },
+  {
     transKey: "damaged_item",
     href: "/damaged_items",
     permission: "damaged_items",
@@ -166,6 +180,13 @@ export const MENU_ITEMS: MenuItem[] = [
     permission: "backup",
     isFinished: true,
     imageSrc: "/dashboard/backup.png",
+  },
+  {
+    transKey: "conversion_rate",
+    href: "/conversion-rate",
+    permission: "settings",
+    isFinished: true,
+    imageSrc: "/dashboard/exchange-rate.png",
   },
   {
     transKey: "settings",

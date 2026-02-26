@@ -4,6 +4,7 @@ import { analyticsGeneralTranslations } from "./analytics_general_translations";
 import { backupTranslations } from "./backup_translations";
 import { companyReturnTranslations } from "./company_return_translations";
 import { companyTranslations } from "./company_translations";
+import { conversionRateTranslations } from "./conversion_rate_translations";
 import { customerTranslations } from "./customer_translations";
 import { damagedItemsTranslations } from "./damaged_items_translations";
 import { dashboardTranslations } from "./dashboard_translations";
@@ -74,6 +75,7 @@ export const translations = {
     damaged_items: damagedItemsTranslations.en,
     company_return: companyReturnTranslations.en,
     stock_valuation: stockValuationTranslations.en,
+    conversion_rate: conversionRateTranslations.en,
   },
   ar: {
     title: "نقطة البيع",
@@ -122,6 +124,7 @@ export const translations = {
     damaged_items: damagedItemsTranslations.ar,
     company_return: companyReturnTranslations.ar,
     stock_valuation: stockValuationTranslations.ar,
+    conversion_rate: conversionRateTranslations.ar,
   },
   ku: {
     title: "خاڵی فرۆشتن",
@@ -170,6 +173,7 @@ export const translations = {
     damaged_items: damagedItemsTranslations.ku,
     company_return: companyReturnTranslations.ku,
     stock_valuation: stockValuationTranslations.ku,
+    conversion_rate: conversionRateTranslations.ku,
   },
   ku_bd: {
     title: "خالا فرۆشتنێ",
@@ -219,5 +223,6 @@ export const translations = {
     damaged_items: damagedItemsTranslations.ku_bd,
     company_return: companyReturnTranslations.ku_bd,
     stock_valuation: stockValuationTranslations.ku_bd,
+    conversion_rate: conversionRateTranslations.ku_bd,
   },
 };

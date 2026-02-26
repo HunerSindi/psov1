@@ -7,9 +7,11 @@ interface Props {
     onSearchChange: (val: string) => void;
     sortBy: string;
     onSortChange: (val: string) => void;
+    showLossesOnly: boolean;
+    onShowLossesOnlyChange: (val: boolean) => void;
 }
 
-export default function InventoryFilter({ search, onSearchChange, sortBy, onSortChange }: Props) {
+export default function InventoryFilter({ search, onSearchChange, sortBy, onSortChange, showLossesOnly, onShowLossesOnlyChange }: Props) {
     const { t } = useSettings();
 
     return (
@@ -45,6 +47,15 @@ export default function InventoryFilter({ search, onSearchChange, sortBy, onSort
                     <option value="expiry_desc">{t("inventory.filters.sort_exp_late")}</option>
                 </select>
             </div>
+
+            {/* Show loses only */}
+            <button
+                type="button"
+                onClick={() => onShowLossesOnlyChange(!showLossesOnly)}
+                className={`h-8 px-4 text-sm font-bold border shrink-0 ${showLossesOnly ? "bg-red-600 text-white border-red-700" : "bg-white text-gray-700 border-gray-400 hover:bg-gray-50"}`}
+            >
+                {t("inventory.filters.show_losses")}
+            </button>
 
         </div>
     );

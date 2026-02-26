@@ -15,6 +15,8 @@ export const ALL_PERMISSIONS = [
     "expense",
     "return_item",
     "return_item_history",
+    "refund_invoice",
+    "refund_invoice_history",
     "installments_warning",
     "installments_list",
     "cashier_report",
@@ -40,7 +42,7 @@ export const PERMISSION_GROUPS = {
         "define_item", "add_item", "sale_ticket", "sale_history",
         "users", "inventory", "companies", "customers", "categories",
         "company_returns",
-        "expense", "return_item", "return_item_history",
+        "expense", "return_item", "return_item_history", "refund_invoice", "refund_invoice_history",
         "installments_warning", "installments_list",
         "cashier_report", "general_report", "backup", "settings"
     ],

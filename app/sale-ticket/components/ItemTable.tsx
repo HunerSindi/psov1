@@ -1,18 +1,17 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { SaleResponse, updateItemQuantity } from "@/lib/api/sale-ticket";
+import { SaleResponse, updateItemQuantity, updateItemDiscount } from "@/lib/api/sale-ticket";
 import { Trash2, Delete, Check } from "lucide-react";
 import { useSettings } from "@/lib/contexts/SettingsContext";
 
 export default function ItemTable({ saleData, onRefresh }: { saleData: SaleResponse | null, onRefresh: () => void }) {
     const { t } = useSettings();
 
-    // Track which item has the keypad open
     const [activeItemId, setActiveItemId] = useState<number | null>(null);
     const [keypadValue, setKeypadValue] = useState("");
+    const [keypadMode, setKeypadMode] = useState<"qty" | "discount">("qty");
 
-    // NEW: Track Screen Position for the Keypad
     const [keypadPos, setKeypadPos] = useState({ top: 0, left: 0 });
 
     // To handle outside clicks
@@ -48,6 +47,17 @@ export default function ItemTable({ saleData, onRefresh }: { saleData: SaleRespo
         }
     };
 
+    const openKeypadForDiscount = (itemId: number, e: React.MouseEvent<HTMLDivElement>) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        setKeypadPos({
+            top: rect.bottom + 5,
+            left: rect.left + (rect.width / 2) - 112
+        });
+        setKeypadMode("discount");
+        setKeypadValue("");
+        setActiveItemId(itemId);
+    };
+
     // Close keypad if clicked outside
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
@@ -55,29 +65,21 @@ export default function ItemTable({ saleData, onRefresh }: { saleData: SaleRespo
                 submitKeypad(activeItemId);
             }
         }
-        // Use capture to ensure we catch it before other handlers if needed
         document.addEventListener("mousedown", handleClickOutside, true);
         return () => document.removeEventListener("mousedown", handleClickOutside, true);
     }, [activeItemId, keypadValue]);
 
-    // Open Keypad Logic - NOW CALCULATES POSITION
     const openKeypad = (itemId: number, e: React.MouseEvent<HTMLInputElement>) => {
-        // 1. Get position of the input element relative to the viewport
         const rect = e.currentTarget.getBoundingClientRect();
-
-        // 2. Set position (Center keypad horizontally relative to input, place below input)
-        // 112 is roughly half the width of the keypad (w-56 = 224px / 2)
         setKeypadPos({
             top: rect.bottom + 5,
             left: rect.left + (rect.width / 2) - 112
         });
-
-        // 3. Clear value and set active
+        setKeypadMode("qty");
         setKeypadValue("");
         setActiveItemId(itemId);
     };
 
-    // Submit Logic
     const submitKeypad = (itemId: number) => {
         const item = saleData?.items.find(i => i.id === itemId);
         if (!item) {
@@ -85,24 +87,27 @@ export default function ItemTable({ saleData, onRefresh }: { saleData: SaleRespo
             return;
         }
 
-        const allowDecimals = isDecimalUnit(item.unit_type);
-
-        // If empty or 0 or invalid, revert to original quantity
-        if (!keypadValue || keypadValue === "0" || keypadValue === ".") {
+        if (keypadMode === "discount") {
+            const val = parseFloat(keypadValue);
+            const num = isNaN(val) || val < 0 ? 0 : val;
+            const discountType = item.discount_type === "percent" ? "percent" : "amount";
+            updateItemDiscount(itemId, num, discountType).then(() => onRefresh());
             setActiveItemId(null);
             return;
         }
 
+        const allowDecimals = isDecimalUnit(item.unit_type);
+        if (!keypadValue || keypadValue === "0" || keypadValue === ".") {
+            setActiveItemId(null);
+            return;
+        }
         const parsed = allowDecimals ? parseFloat(keypadValue) : parseInt(keypadValue);
-
         if (!isNaN(parsed) && parsed > 0 && parsed !== item.quantity) {
             changeQty(itemId, parsed);
         }
-
         setActiveItemId(null);
     };
 
-    // Keypad Button Click
     const handleKeypadClick = (key: string, itemId: number) => {
         if (key === "C") {
             setKeypadValue("");
@@ -111,12 +116,10 @@ export default function ItemTable({ saleData, onRefresh }: { saleData: SaleRespo
         } else if (key === "ENTER") {
             submitKeypad(itemId);
         } else {
-            // Prevent multiple dots
             if (key === "." && keypadValue.includes(".")) return;
-
             const item = saleData?.items.find(i => i.id === itemId);
-            if (key === "." && item && !isDecimalUnit(item.unit_type)) return;
-
+            const allowDecimals = keypadMode === "discount" || (item && isDecimalUnit(item.unit_type));
+            if (key === "." && !allowDecimals) return;
             setKeypadValue(prev => prev + key);
         }
     };
@@ -141,6 +144,7 @@ export default function ItemTable({ saleData, onRefresh }: { saleData: SaleRespo
                         <th className="p-2 border-r border-gray-300 text-[10px] font-bold uppercase w-16 text-center">{t("sale_ticket.table.headers.unit")}</th>
                         <th className="p-2 border-r border-gray-300 text-[10px] font-bold uppercase w-20 text-right">{t("sale_ticket.table.headers.price")}</th>
                         <th className="p-2 border-r border-gray-300 text-[10px] font-bold uppercase w-28 text-center">{t("sale_ticket.table.headers.qty")}</th>
+                        <th className="p-2 border-r border-gray-300 text-[10px] font-bold uppercase w-18 text-right">{t("sale_ticket.totals.discount")}</th>
                         <th className="p-2 border-r border-gray-300 text-[10px] font-bold uppercase w-24 text-right">{t("sale_ticket.table.headers.total")}</th>
                         <th className="p-2 text-[10px] font-bold uppercase w-10 text-center">{t("sale_ticket.table.headers.del")}</th>
                     </tr>
@@ -148,7 +152,7 @@ export default function ItemTable({ saleData, onRefresh }: { saleData: SaleRespo
                 <tbody className="divide-y divide-gray-200 text-xs">
                     {saleData.items.map((item, idx) => {
                         const allowDecimals = isDecimalUnit(item.unit_type);
-                        const isThisKeypadOpen = activeItemId === item.id;
+                        const isQtyKeypadOpen = activeItemId === item.id && keypadMode === "qty";
 
                         return (
                             <tr key={item.id} className="hover:bg-blue-50 group transition-colors">
@@ -171,12 +175,29 @@ export default function ItemTable({ saleData, onRefresh }: { saleData: SaleRespo
                                             type="text"
                                             readOnly
                                             className="w-16 h-6 text-center border-t border-b border-gray-400 font-bold text-black outline-none focus:bg-yellow-50 text-xs cursor-pointer"
-                                            value={isThisKeypadOpen ? keypadValue : item.quantity}
+                                            value={isQtyKeypadOpen ? keypadValue : item.quantity}
                                             placeholder={item.quantity.toString()}
                                             onClick={(e) => openKeypad(item.id, e)} // PASS EVENT HERE
                                         />
 
                                         <button onClick={() => changeQty(item.id, item.quantity + 1)} className="w-8 h-6 bg-gray-200 border border-gray-400 text-black font-bold hover:bg-green-200 active:bg-green-300 transition-colors">+</button>
+                                    </div>
+                                </td>
+
+                                {/* Per-item discount: value only, keypad like quantity */}
+                                <td className="p-1 border-r border-gray-100 text-right">
+                                    <div
+                                        role="button"
+                                        tabIndex={0}
+                                        className="w-full min-w-[56px] h-6 text-right px-1 text-xs font-mono font-bold text-gray-700 hover:bg-yellow-50 hover:border hover:border-gray-400 rounded border border-transparent transition-colors cursor-pointer flex items-center justify-end border-t border-b border-gray-400 focus:bg-yellow-50 outline-none"
+                                        onClick={(e) => openKeypadForDiscount(item.id, e)}
+                                        onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") e.currentTarget.click(); }}
+                                    >
+                                        {activeItemId === item.id && keypadMode === "discount"
+                                            ? keypadValue || "0"
+                                            : (item.discount_value ?? 0) > 0
+                                                ? (item.discount_value ?? 0).toLocaleString()
+                                                : "0"}
                                     </div>
                                 </td>
 
@@ -204,7 +225,7 @@ export default function ItemTable({ saleData, onRefresh }: { saleData: SaleRespo
                     }}
                 >
                     <div className="bg-gray-100 px-2 py-1 text-xs font-bold text-gray-600 border-b border-gray-300 text-center uppercase tracking-wider">
-                        {t("sale_ticket.table.headers.qty")}
+                        {keypadMode === "discount" ? t("sale_ticket.totals.discount") : t("sale_ticket.table.headers.qty")}
                     </div>
                     <div className="grid grid-cols-4 gap-1 p-2 bg-gray-50" dir="ltr">
                         {["1", "2", "3"].map((key) => (

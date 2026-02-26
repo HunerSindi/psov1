@@ -12,6 +12,8 @@ import {
     DialogDescription,
 } from "@/components/ui/dialog";
 
+type TabId = "barcode" | "discounts";
+
 interface Props {
     barcodes: string[];
     setBarcodes: (codes: string[]) => void;
@@ -19,6 +21,8 @@ interface Props {
     onSave: () => void;
     isUpdateMode: boolean;
     name: string;
+    activeTab: TabId;
+    onTabChange: (tab: TabId) => void;
 }
 
 export default function BarcodeSection({
@@ -28,6 +32,8 @@ export default function BarcodeSection({
     onSave,
     isUpdateMode,
     name,
+    activeTab,
+    onTabChange,
 }: Props) {
     const { t, dir } = useSettings();
 
@@ -82,11 +88,30 @@ export default function BarcodeSection({
             */}
             <div className="bg-white border border-gray-400 flex flex-col h-[calc(100vh-76px)]">
 
-                {/* Header (Fixed) */}
-                <div className="bg-gray-100 border-b border-gray-400 p-3 shrink-0">
-                    <h2 className="font-bold text-sm uppercase text-gray-700 tracking-wide">
-                        {t("define_item.section_barcodes")}
-                    </h2>
+                {/* Header with tabs */}
+                <div className="flex border-b border-gray-400 bg-gray-100 shrink-0">
+                    <button
+                        type="button"
+                        onClick={() => onTabChange("barcode")}
+                        className={`px-4 py-2 text-xs font-bold uppercase border-b-2 transition-colors ${
+                            activeTab === "barcode"
+                                ? "border-blue-600 text-blue-700 bg-white -mb-px"
+                                : "border-transparent text-gray-600 hover:text-gray-800"
+                        }`}
+                    >
+                        {t("define_item.tab_barcode")}
+                    </button>
+                    <button
+                        type="button"
+                        onClick={() => onTabChange("discounts")}
+                        className={`px-4 py-2 text-xs font-bold uppercase border-b-2 transition-colors ${
+                            activeTab === "discounts"
+                                ? "border-blue-600 text-blue-700 bg-white -mb-px"
+                                : "border-transparent text-gray-600 hover:text-gray-800"
+                        }`}
+                    >
+                        {t("define_item.tab_discounts")}
+                    </button>
                 </div>
 
                 {/* Content Area (Flex container) */}

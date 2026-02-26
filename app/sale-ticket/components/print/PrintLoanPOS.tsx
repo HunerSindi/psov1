@@ -70,12 +70,12 @@ export default function PrintLoanPOS({ data }: { data: SaleResponse }) {
                 <div className="mb-2 text-lg font-bold">
                     <div className="flex justify-between mb-1">
                         <span>{t("sale_ticket.pos.ticket_no")}: <span className="text-xl">#{receipt.id}</span></span>
-                        <span>{new Date().toLocaleDateString()}</span>
+                        <span>{new Date().toLocaleString(undefined, { dateStyle: "short", timeStyle: "short" })}</span>
                     </div>
 
-                    {/* Customer Info */}
-                    <div className="border-b-[3px] border-black border-dashed mt-1 pb-1">
-                        {t("sale_ticket.pos.customer")}: <span className="text-xl">{customer?.name}</span>
+                    <div className="flex justify-between border-b-[3px] border-black border-dashed mt-1 pb-1">
+                        <span>{t("sale_ticket.pos.customer")}: <span className="text-xl">{customer?.name || t("sale_ticket.pos.guest")}</span></span>
+                        <span>{t("sale_ticket.pos.cashier")}: <span className="text-xl">{receipt.cashier_name || `#${receipt.user_id}`}</span></span>
                     </div>
                 </div>
 

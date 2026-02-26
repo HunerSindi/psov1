@@ -34,7 +34,8 @@ export const inventoryTranslations = {
             sort_default: "Default (Low Stock First)",
             sort_high_stock: "Highest Stock",
             sort_exp_soon: "Expiring Soonest",
-            sort_exp_late: "Expiring Latest"
+            sort_exp_late: "Expiring Latest",
+            show_losses: "Show loses item"
         },
         actions: {
             reports_title: "Reports",
@@ -77,7 +78,8 @@ export const inventoryTranslations = {
             sort_default: "الافتراضي (الأقل عدداً أولاً)",
             sort_high_stock: "الأكثر عدداً",
             sort_exp_soon: "الأقرب انتهاءً صلاحية",
-            sort_exp_late: "الأبعد انتهاءً صلاحية"
+            sort_exp_late: "الأبعد انتهاءً صلاحية",
+            show_losses: "عرض المواد الخاسرة"
         },
         actions: {
             reports_title: "تقارير",
@@ -119,7 +121,8 @@ export const inventoryTranslations = {
             sort_default: "سەرەتایی (کەمترین عەدد)",
             sort_high_stock: "زۆرترین عەدد",
             sort_exp_soon: "نزیکترین بەسەرچوون",
-            sort_exp_late: "دوورترین بەسەرچوون"
+            sort_exp_late: "دوورترین بەسەرچوون",
+            show_losses: "پیشاندانی کاڵای خەسارە"
         },
         actions: {
             reports_title: "ڕاپۆرتەکان",
@@ -161,7 +164,8 @@ export const inventoryTranslations = {
             sort_default: "یێ سەرەکی (کێمترین هەژمار)",
             sort_high_stock: "زۆرترین هەژمار",
             sort_exp_soon: "نێزیکترین بەسەرچوون",
-            sort_exp_late: "دویرترین بەسەرچوون"
+            sort_exp_late: "دویرترین بەسەرچوون",
+            show_losses: "نیشاندا کاڵایێن خەسارە"
         },
         actions: {
             reports_title: "راپۆرت",

@@ -8,22 +8,28 @@ export interface SaleReceipt {
     ticket_number: number;
     customer_id: number | null;
     user_id: number;
+    cashier_name?: string;    // display name of the cashier (from backend)
     status: string;
     payment_type: string;
     total_amount: number;
+    discount_type?: string;   // "amount" | "percent" (optional, from backend)
     discount_value: number;
     final_amount: number;
     paid_amount: number;
 }
 
 export interface SaleItem {
-    id: number; // This is the Line Item ID (used for updating qty)
+    id: number;
     item_id: number;
     item_name: string;
     unit_type: string;
     cost_price: number;
     price: number;
     quantity: number;
+    discount_type?: string;   // "percent" | "amount"
+    discount_value?: number;
+    discount_start_date?: string;
+    discount_end_date?: string;
     subtotal: number;
 }
 
@@ -78,6 +84,20 @@ export async function updateItemQuantity(itemId: number, newQty: number) {
     return res.ok;
 }
 
+// 3b. Update per-item discount (type + value)
+export async function updateItemDiscount(
+    itemId: number,
+    discountValue: number,
+    discountType: "percent" | "amount" = "amount"
+) {
+    const res = await fetch(`${API_BASE}/sales/items/${itemId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ discount_type: discountType, discount_value: discountValue })
+    });
+    return res.ok;
+}
+
 // 4. Assign Customer
 export async function setSaleCustomer(saleId: number, customerId: number) {
     const res = await fetch(`${API_BASE}/sales/${saleId}/customer`, {
@@ -88,12 +108,16 @@ export async function setSaleCustomer(saleId: number, customerId: number) {
     return res.ok;
 }
 
-// 5. Apply Discount
-export async function applyDiscount(saleId: number, value: number) {
+// 5. Apply Discount (amount or percent)
+export async function applyDiscount(
+    saleId: number,
+    value: number,
+    type: "amount" | "percent" = "amount"
+) {
     const res = await fetch(`${API_BASE}/sales/${saleId}/discount`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ discount_type: "amount", discount_value: value })
+        body: JSON.stringify({ discount_type: type, discount_value: value })
     });
     return res.ok;
 }

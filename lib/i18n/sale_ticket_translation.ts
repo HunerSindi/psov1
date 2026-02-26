@@ -76,6 +76,7 @@ export const saleTicketTranslations = {
             btn_cash: "Pay Cash",
             btn_cash_a4: "Cash A4",
             btn_cash_pos: "Cash POS",
+            btn_download_word: "Download Word",
             btn_loan: "Loan (Credit)",
             btn_installment: "Installment",
             alert_select_cust: "Please select a customer first!",
@@ -113,6 +114,8 @@ export const saleTicketTranslations = {
             quick_access: "Quick Access",
             manage: "Manage",
             done: "Done",
+            tab_local_categories: "Local categories",
+            tab_price_calculator: "Price calculator",
             add_item: "Add Item",
             add_cat: "Add Cat",
             no_cats: "No Categories",
@@ -129,6 +132,19 @@ export const saleTicketTranslations = {
             label_price: "Display Price",
             btn_cancel: "CANCEL",
             btn_save: "SAVE"
+        },
+        calculator: {
+            ticket_total: "Ticket total",
+            customer_pays: "Customer pays",
+            clear: "Clear",
+            return_to_customer: "Return to customer",
+            rate_label: "Rate (1 {{curr}} = ? IQD)",
+            tab_iqd: "IQD",
+            tab_usd: "USD",
+            tab_eur: "EUR",
+            tab_gbp: "Pound",
+            tab_try: "Turkish Lira",
+            tab_sar: "Saudi Riyal"
         }
     },
     ar: {
@@ -206,6 +222,7 @@ export const saleTicketTranslations = {
             btn_cash: "دفع نقدي",
             btn_cash_a4: "نقدي A4",
             btn_cash_pos: "نقدي وصل",
+            btn_download_word: "تحميل Word",
             btn_loan: "آجل (دين)",
             btn_installment: "أقساط",
             alert_select_cust: "يرجى اختيار زبون أولاً!",
@@ -244,6 +261,8 @@ export const saleTicketTranslations = {
             quick_access: "وصول سريع",
             manage: "إدارة",
             done: "تم",
+            tab_local_categories: "أقسام محلية",
+            tab_price_calculator: "حاسبة الأسعار",
             add_item: "إضافة مادة",
             add_cat: "إضافة قسم",
             no_cats: "لا توجد أقسام",
@@ -260,6 +279,19 @@ export const saleTicketTranslations = {
             label_price: "سعر العرض",
             btn_cancel: "إلغاء",
             btn_save: "حفظ"
+        },
+        calculator: {
+            ticket_total: "مجموع الوصل",
+            customer_pays: "المبلغ المدفوع",
+            clear: "مسح",
+            return_to_customer: "المبلغ المرتجع للزبون",
+            rate_label: "سعر (1 {{curr}} = ? د.ع)",
+            tab_iqd: "د.ع",
+            tab_usd: "دولار",
+            tab_eur: "يورو",
+            tab_gbp: "جنيه",
+            tab_try: "ليرة تركية",
+            tab_sar: "ريال سعودي"
         }
     },
     ku: {
@@ -337,6 +369,7 @@ export const saleTicketTranslations = {
             btn_cash: "نەقد (کاش)",
             btn_cash_a4: "نەقد A4",
             btn_cash_pos: "نەقد وەسڵ",
+            btn_download_word: "داگرتنی Word",
             btn_loan: "قەرز (لەسەر حسێب)",
             btn_installment: "قیست",
             alert_select_cust: "تکایە سەرەتا کڕیار دیاریبکە!",
@@ -374,6 +407,8 @@ export const saleTicketTranslations = {
             quick_access: "دەستگەیشتنی خێرا",
             manage: "ڕێکخستن",
             done: "تەواو",
+            tab_local_categories: "بەشە ناوخۆییەکان",
+            tab_price_calculator: "کاڵکولیەتەری نرخ",
             add_item: "زیادکردنی کاڵا",
             add_cat: "زیادکردنی بەش",
             no_cats: "هیچ بەشێک نییە",
@@ -390,6 +425,19 @@ export const saleTicketTranslations = {
             label_price: "نرخی پیشاندان",
             btn_cancel: "پاشگەزبوونەوە",
             btn_save: "پاشەکەوت"
+        },
+        calculator: {
+            ticket_total: "کۆی وەسڵ",
+            customer_pays: "پارەی دراو",
+            clear: "پاککردنەوە",
+            return_to_customer: "گەڕاندنەوە بە کڕیار",
+            rate_label: "نرخ (1 {{curr}} = ? ع.د)",
+            tab_iqd: "ع.د",
+            tab_usd: "دۆلار",
+            tab_eur: "یۆرۆ",
+            tab_gbp: "پاوند",
+            tab_try: "لیرەی تورکی",
+            tab_sar: "ڕیالی سعودی"
         }
     },
     ku_bd: {
@@ -465,6 +513,7 @@ export const saleTicketTranslations = {
             btn_cash: "نەقد (کاش)",
             btn_cash_a4: "نەقد A4",
             btn_cash_pos: "نەقد پسوولە",
+            btn_download_word: "داگرتنی Word",
             btn_loan: "قەرز",
             btn_installment: "قیست",
             alert_select_cust: "تکایە ل دەسپێکێ کڕیاری دیاریکە!",
@@ -502,6 +551,8 @@ export const saleTicketTranslations = {
             quick_access: "دەستەگەهشتنا بلەز",
             manage: "رێخستن",
             done: "تەمام",
+            tab_local_categories: "بەشێن ناوخۆیی",
+            tab_price_calculator: "کاڵکولیەتەرا نرخێ",
             add_item: "زێدەکرنا پارچێ",
             add_cat: "زێدەکرنا بەشێ",
             no_cats: "چ بەش نینن",
@@ -517,6 +568,19 @@ export const saleTicketTranslations = {
             label_price: "نرخێ نیشاندانێ",
             btn_cancel: "پاشگەزبۆنەڤە",
             btn_save: "پاراستن"
+        },
+        calculator: {
+            ticket_total: "کۆیا پسوولێ",
+            customer_pays: "پارێ یا دایە",
+            clear: "پاککرنەڤە",
+            return_to_customer: "گەڕاندنەوە ب کڕیار",
+            rate_label: "نرخ (1 {{curr}} = ? ع.د)",
+            tab_iqd: "ع.د",
+            tab_usd: "دۆلار",
+            tab_eur: "یۆرۆ",
+            tab_gbp: "پاوند",
+            tab_try: "لیرەیا تورکی",
+            tab_sar: "ڕیالیا سعودی"
         }
     }
 };

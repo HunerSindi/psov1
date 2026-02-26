@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import { getInventory, InventoryItem } from "@/lib/api/inventory";
 import { Printer } from "lucide-react";
 import { useSettings } from "@/lib/contexts/SettingsContext"; // Hook
@@ -11,19 +12,39 @@ import InventoryFilter from "./components/InventoryFilter";
 import InventoryTable from "./components/InventoryTable";
 import PrintInventory from "./components/PrintInventory";
 
+function parsePage(s: string | null): number {
+    if (s == null || s === "") return 1;
+    const n = parseInt(s, 10);
+    return Number.isFinite(n) && n >= 1 ? n : 1;
+}
+
 export default function InventoryPage() {
     const { t } = useSettings(); // Hook
+    const searchParams = useSearchParams();
+    const router = useRouter();
 
-    // --- State ---
+    // --- State (initial from URL so back from define-item restores view) ---
     const [items, setItems] = useState<InventoryItem[]>([]);
     const [loading, setLoading] = useState(true);
 
-    // Filters
-    const [search, setSearch] = useState("");
-    const [sortBy, setSortBy] = useState("");
-    const [page, setPage] = useState(1);
+    const [search, setSearch] = useState(() => searchParams.get("search") ?? "");
+    const [sortBy, setSortBy] = useState(() => searchParams.get("sort") ?? "");
+    const [showLossesOnly, setShowLossesOnly] = useState(() => searchParams.get("losses") === "1");
+    const [page, setPage] = useState(() => parsePage(searchParams.get("page")));
     const [totalPages, setTotalPages] = useState(1);
     const pageSize = 20;
+
+    // Sync URL -> state when returning (e.g. back from define-item) so view is restored
+    useEffect(() => {
+        const pageFromUrl = parsePage(searchParams.get("page"));
+        const searchFromUrl = searchParams.get("search") ?? "";
+        const sortFromUrl = searchParams.get("sort") ?? "";
+        const lossesFromUrl = searchParams.get("losses") === "1";
+        setPage(pageFromUrl);
+        setSearch(searchFromUrl);
+        setSortBy(sortFromUrl);
+        setShowLossesOnly(lossesFromUrl);
+    }, [searchParams]);
 
     // --- Fetch with Debounce ---
     useEffect(() => {
@@ -33,11 +54,11 @@ export default function InventoryPage() {
 
         return () => clearTimeout(timer);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [search, sortBy, page]);
+    }, [search, sortBy, page, showLossesOnly]);
 
     const fetchData = async () => {
         setLoading(true);
-        const data = await getInventory(search, page, pageSize, sortBy);
+        const data = await getInventory(search, page, pageSize, sortBy, showLossesOnly);
 
         if (data) {
             console.log(data)
@@ -49,18 +70,52 @@ export default function InventoryPage() {
         setLoading(false);
     };
 
+    // Build inventory query string from given state (for URL sync and for return link to define-item)
+    const buildInventoryQuery = useCallback(
+        (overrides: { page?: number; search?: string; sort?: string; losses?: boolean } = {}) => {
+            const p = new URLSearchParams();
+            const pg = overrides.page ?? page;
+            const sr = overrides.search ?? search;
+            const so = overrides.sort ?? sortBy;
+            const lo = overrides.losses ?? showLossesOnly;
+            if (pg !== 1) p.set("page", String(pg));
+            if (sr) p.set("search", sr);
+            if (so) p.set("sort", so);
+            if (lo) p.set("losses", "1");
+            return p.toString();
+        },
+        [page, search, sortBy, showLossesOnly]
+    );
+
     // --- Handlers ---
     const handleSearch = (val: string) => {
         setSearch(val);
         setPage(1);
+        const q = buildInventoryQuery({ search: val, page: 1 });
+        router.replace(q ? `/inventory?${q}` : "/inventory", { scroll: false });
     };
 
     const handleSort = (val: string) => {
         setSortBy(val);
         setPage(1);
+        const q = buildInventoryQuery({ sort: val, page: 1 });
+        router.replace(q ? `/inventory?${q}` : "/inventory", { scroll: false });
     };
 
-    const printLabel = `${t("inventory.filters.sort_label")}: ${sortBy || t("inventory.filters.sort_default")} | ${t("inventory.filters.search_label")}: "${search}"`;
+    const handleShowLossesOnlyChange = (val: boolean) => {
+        setShowLossesOnly(val);
+        setPage(1);
+        const q = buildInventoryQuery({ losses: val, page: 1 });
+        router.replace(q ? `/inventory?${q}` : "/inventory", { scroll: false });
+    };
+
+    const handlePageChange = (newPage: number) => {
+        setPage(newPage);
+        const q = buildInventoryQuery({ page: newPage });
+        router.replace(q ? `/inventory?${q}` : "/inventory", { scroll: false });
+    };
+
+    const printLabel = `${showLossesOnly ? t("inventory.filters.show_losses") + " | " : ""}${t("inventory.filters.sort_label")}: ${sortBy || t("inventory.filters.sort_default")} | ${t("inventory.filters.search_label")}: "${search}"`;
 
     return (
         <div className="h-screen flex flex-col bg-gray-100 font-sans overflow-hidden">
@@ -80,6 +135,8 @@ export default function InventoryPage() {
                         onSearchChange={handleSearch}
                         sortBy={sortBy}
                         onSortChange={handleSort}
+                        showLossesOnly={showLossesOnly}
+                        onShowLossesOnlyChange={handleShowLossesOnlyChange}
                     />
 
                     <div className="flex-1 overflow-hidden mt-2">
@@ -88,8 +145,9 @@ export default function InventoryPage() {
                             loading={loading}
                             page={page}
                             totalPages={totalPages}
-                            onPageChange={setPage}
+                            onPageChange={handlePageChange}
                             onRefresh={fetchData}
+                            returnQuery={buildInventoryQuery()}
                         />
                     </div>
                 </div>

@@ -216,6 +216,20 @@ export default function TotalsSection({ saleData, onRefresh, onPrintRequest, onP
                 </div>
             </div>
 
+            {/* Subtotal / Discount / Total breakdown */}
+            <div className="bg-gray-50 border border-gray-400 p-2 space-y-1 text-sm">
+                <div className="flex justify-between items-center">
+                    <span className="text-xs font-bold uppercase text-gray-600">{t("sale_ticket.totals.label_subtotal")}</span>
+                    <span className="font-mono font-bold">{saleData.receipt.total_amount.toLocaleString()}</span>
+                </div>
+                {saleData.receipt.discount_value > 0 && (
+                    <div className="flex justify-between items-center text-red-700">
+                        <span className="text-xs font-bold uppercase">{t("sale_ticket.totals.discount")}</span>
+                        <span className="font-mono font-bold">-{saleData.receipt.discount_value.toLocaleString()}</span>
+                    </div>
+                )}
+            </div>
+
             <div className="bg-black text-white p-3 text-center border border-black shadow-sm">
                 <div className="text-[10px] uppercase tracking-widest text-gray-400">
                     {t("sale_ticket.totals.total_payable")}

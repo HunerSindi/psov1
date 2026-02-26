@@ -8,6 +8,7 @@ import DefineHeader from "./components/DefineHeader";
 import BasicInfo from "./components/BasicInfo";
 import PricingStock from "./components/PricingStock";
 import BarcodeSection from "./components/BarcodeSection";
+import DiscountSection from "./components/DiscountSection";
 import { useSettings } from "@/lib/contexts/SettingsContext";
 import {
     Dialog,
@@ -34,6 +35,10 @@ const INITIAL_STATE: Item = {
     packet_quantity: 0,
     unit_per_packet: 0,
     barcodes: [],
+    discount_type: undefined,
+    discount_value: undefined,
+    discount_start_date: undefined,
+    discount_end_date: undefined,
 };
 
 export default function DefineItemPage() {
@@ -51,6 +56,7 @@ export default function DefineItemPage() {
     const [msg, setMsg] = useState("");
     const [isErrorOpen, setIsErrorOpen] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
+    const [rightTab, setRightTab] = useState<"barcode" | "discounts">("barcode");
 
     // Refs
     const nameRef = useRef<HTMLInputElement>(null);
@@ -108,7 +114,11 @@ export default function DefineItemPage() {
             if (foundItem) {
                 const safeItem = {
                     ...foundItem,
-                    expiration_date: foundItem.expiration_date ? foundItem.expiration_date.split('T')[0] : getTodayDate()
+                    expiration_date: foundItem.expiration_date ? foundItem.expiration_date.split('T')[0] : getTodayDate(),
+                    discount_type: foundItem.discount_type ?? undefined,
+                    discount_value: foundItem.discount_value ?? undefined,
+                    discount_start_date: foundItem.discount_start_date ? String(foundItem.discount_start_date).split('T')[0] : undefined,
+                    discount_end_date: foundItem.discount_end_date ? String(foundItem.discount_end_date).split('T')[0] : undefined,
                 };
                 setItem(safeItem);
                 setIsUpdateMode(true);
@@ -131,8 +141,15 @@ export default function DefineItemPage() {
         const scanParam = searchParams.get("scan");
         if (scanParam) {
             performSearch(scanParam);
-            // Optional: Remove query param from URL after scanning so refresh doesn't re-trigger
-            router.replace("/define-item", { scroll: false });
+            const from = searchParams.get("from");
+            const p = new URLSearchParams();
+            if (from) p.set("from", from);
+            ["page", "search", "sort", "losses"].forEach((key) => {
+                const v = searchParams.get(key);
+                if (v) p.set(key, v);
+            });
+            const replaceUrl = p.toString() ? `/define-item?${p.toString()}` : "/define-item";
+            router.replace(replaceUrl, { scroll: false });
         }
     }, [searchParams, router]);
 
@@ -226,14 +243,36 @@ export default function DefineItemPage() {
                     onFocusSelect={handleFocusSelect}
                 />
 
-                <BarcodeSection
-                    barcodes={item.barcodes}
-                    setBarcodes={handleBarcodesChange}
-                    loading={loading}
-                    onSave={handleSave}
-                    isUpdateMode={isUpdateMode}
-                    name={item.name}
-                />
+                {/* Third column: Barcode or Discounts (tabs inside each section header) */}
+                <div className="flex-1 min-h-0">
+                    {rightTab === "barcode" && (
+                        <BarcodeSection
+                            barcodes={item.barcodes}
+                            setBarcodes={handleBarcodesChange}
+                            loading={loading}
+                            onSave={handleSave}
+                            isUpdateMode={isUpdateMode}
+                            name={item.name}
+                            activeTab={rightTab}
+                            onTabChange={setRightTab}
+                        />
+                    )}
+                    {rightTab === "discounts" && (
+                        <DiscountSection
+                            discountType={item.discount_type ?? ""}
+                            discountValue={item.discount_value ?? 0}
+                            discountStartDate={item.discount_start_date ?? ""}
+                            discountEndDate={item.discount_end_date ?? ""}
+                            onChange={(field, value) => handleChange(field, value)}
+                            loading={loading}
+                            onSave={handleSave}
+                            isUpdateMode={isUpdateMode}
+                            name={item.name}
+                            activeTab={rightTab}
+                            onTabChange={setRightTab}
+                        />
+                    )}
+                </div>
             </div>
         </div>
     );

@@ -26,6 +26,12 @@ export interface Item {
 
     // Barcodes
     barcodes: string[];
+
+    // Optional discount
+    discount_type?: string;
+    discount_value?: number;
+    discount_start_date?: string;
+    discount_end_date?: string;
 }
 
 // GET ITEM BY BARCODE

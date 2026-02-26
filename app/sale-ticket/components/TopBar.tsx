@@ -1,21 +1,25 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react"; // <--- Added useRef
+import { useState, useEffect, useRef, useImperativeHandle, forwardRef } from "react";
 import { SaleResponse, addItemToSale, setSaleCustomer } from "@/lib/api/sale-ticket";
 import { getCustomers, Customer } from "@/lib/api/customers";
 import { getItemByBarcode } from "@/lib/api/items";
-import { User, Search, X, Check } from "lucide-react";
+import { User, Search, X, Check, FileDown } from "lucide-react";
 import { useSettings } from "@/lib/contexts/SettingsContext";
+import { downloadCashAsWord, type CashReceiptDocLabels } from "@/lib/sale-ticket-to-docx";
+
+export interface TopBarRef {
+    focusBarcode: () => void;
+}
 
 interface Props {
     saleData: SaleResponse | null;
     onRefresh: () => void;
 }
 
-export default function TopBar({ saleData, onRefresh }: Props) {
-    const { t } = useSettings();
+const TopBar = forwardRef<TopBarRef, Props>(function TopBar({ saleData, onRefresh }, ref) {
+    const { t, dir, settings } = useSettings();
 
-    // --- 1. Create a Ref for the Barcode Input ---
     const barcodeInputRef = useRef<HTMLInputElement>(null);
 
     const [barcode, setBarcode] = useState("");
@@ -24,15 +28,15 @@ export default function TopBar({ saleData, onRefresh }: Props) {
     const [customers, setCustomers] = useState<Customer[]>([]);
     const [custSearch, setCustSearch] = useState("");
 
-    // --- 2. Auto-Focus Logic ---
     const focusBarcodeInput = () => {
-        // Small timeout ensures the DOM is ready and modals are fully closed
         setTimeout(() => {
             if (barcodeInputRef.current) {
                 barcodeInputRef.current.focus();
             }
         }, 100);
     };
+
+    useImperativeHandle(ref, () => ({ focusBarcode: focusBarcodeInput }), []);
 
     // Trigger focus whenever saleData changes (ticket switch, item added, etc.)
     // or when the customer modal closes.
@@ -227,6 +231,91 @@ export default function TopBar({ saleData, onRefresh }: Props) {
                 >
                     <User size={18} />
                 </button>
+                <button
+                    type="button"
+                    title={t("sale_ticket.totals.btn_download_word")}
+                    disabled={!saleData?.items?.length}
+                    onClick={async () => {
+                        if (!saleData?.items?.length) return;
+                        const labels: CashReceiptDocLabels = {
+                            title: t("sale_ticket.header.title"),
+                            label_date: t("sale_ticket.totals.label_date"),
+                            label_customer: t("sale_ticket.totals.label_customer"),
+                            label_ticket_id: t("sale_ticket.totals.label_ticket_id"),
+                            label_subtotal: t("sale_ticket.totals.label_subtotal"),
+                            discount: t("sale_ticket.totals.discount"),
+                            total_payable: t("sale_ticket.totals.total_payable"),
+                            header_hash: t("sale_ticket.table.headers.hash"),
+                            header_desc: t("sale_ticket.table.headers.desc"),
+                            header_unit: t("sale_ticket.table.headers.unit"),
+                            header_price: t("sale_ticket.table.headers.price"),
+                            header_qty: t("sale_ticket.table.headers.qty"),
+                            header_discount: t("sale_ticket.totals.discount"),
+                            header_total: t("sale_ticket.table.headers.total"),
+                            guest_customer: t("sale_ticket.topbar.guest_customer"),
+                            getUnitLabel: (type: string) => {
+                                if (type.includes("packet")) return t("sale_ticket.topbar.unit_packet");
+                                if (type.includes("wholesale")) return t("sale_ticket.topbar.unit_wholesale");
+                                return t("sale_ticket.topbar.unit_single");
+                            },
+                        };
+                        type ImgData = { data: ArrayBuffer; type: "png" | "jpg" | "gif" | "bmp" };
+                        const dataUrlToImageData = (dataUrl: string): ImgData | undefined => {
+                            try {
+                                const match = dataUrl.match(/^data:image\/(\w+);base64,(.+)$/);
+                                if (!match) return undefined;
+                                const mime = match[1].toLowerCase();
+                                const type = mime === "jpeg" ? "jpg" : mime === "png" || mime === "gif" || mime === "bmp" ? mime : "png";
+                                const binary = atob(match[2]);
+                                const bytes = new Uint8Array(binary.length);
+                                for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+                                return { data: bytes.buffer, type };
+                            } catch {
+                                return undefined;
+                            }
+                        };
+                        const fetchImageData = async (url: string): Promise<ImgData | undefined> => {
+                            try {
+                                const res = await fetch(url);
+                                if (!res.ok) return undefined;
+                                const data = await res.arrayBuffer();
+                                const path = url.split("?")[0].toLowerCase();
+                                const type = path.endsWith(".jpg") || path.endsWith(".jpeg") ? "jpg" : path.endsWith(".gif") ? "gif" : path.endsWith(".bmp") ? "bmp" : "png";
+                                return { data, type };
+                            } catch {
+                                return undefined;
+                            }
+                        };
+
+                        let headerImageData: ImgData | undefined;
+                        let footerImageData: ImgData | undefined;
+                        if (settings?.headerA4) {
+                            if (settings.headerA4.startsWith("data:")) {
+                                headerImageData = dataUrlToImageData(settings.headerA4);
+                            } else {
+                                const url = settings.headerA4.startsWith("http") ? settings.headerA4 : `${typeof window !== "undefined" ? window.location.origin : ""}${settings.headerA4}`;
+                                headerImageData = await fetchImageData(url);
+                            }
+                        }
+                        if (settings?.footerA4) {
+                            if (settings.footerA4.startsWith("data:")) {
+                                footerImageData = dataUrlToImageData(settings.footerA4);
+                            } else {
+                                const url = settings.footerA4.startsWith("http") ? settings.footerA4 : `${typeof window !== "undefined" ? window.location.origin : ""}${settings.footerA4}`;
+                                footerImageData = await fetchImageData(url);
+                            }
+                        }
+                        await downloadCashAsWord(saleData, labels, {
+                            rtl: dir === "rtl",
+                            headerImageData,
+                            footerImageData,
+                        });
+                    }}
+                    className="h-8 px-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none text-white border border-blue-800 flex items-center justify-center gap-1 text-xs font-bold uppercase transition-colors"
+                >
+                    <FileDown size={14} />
+                    <span className="hidden sm:inline">{t("sale_ticket.totals.btn_download_word")}</span>
+                </button>
             </div>
 
             {/* CUSTOMER MODAL (Unchanged logic) */}
@@ -291,4 +380,6 @@ export default function TopBar({ saleData, onRefresh }: Props) {
             )}
         </div>
     );
-}
+});
+
+export default TopBar;

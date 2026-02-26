@@ -42,6 +42,7 @@ export interface SalesHistoryResponse {
 
 export interface SalesFilters {
     search?: string;        // For Name, Phone, Ticket
+    customer_id?: number;   // Filter by customer ID (exact match when backend supports it)
     payment_type?: string;  // cash, loan, installment
     min_amount?: string;
     max_amount?: string;
@@ -61,6 +62,7 @@ export async function getSalesHistory(
         params.append("limit", limit.toString()); // Use the dynamic limit
 
         if (filters.search) params.append("search", filters.search);
+        if (filters.customer_id != null) params.append("customer_id", String(filters.customer_id));
         if (filters.payment_type && filters.payment_type !== "all") params.append("payment_type", filters.payment_type);
         if (filters.min_amount) params.append("min_amount", filters.min_amount);
         if (filters.max_amount) params.append("max_amount", filters.max_amount);
@@ -107,13 +109,93 @@ export interface SaleDetail {
 
 export async function getSaleDetail(id: number) {
     try {
-        const res = await fetch(`http://127.0.0.1:8081/sales/${id}`, {
+        const res = await fetch(`${API_BASE}/sales/${id}`, {
             cache: "no-store"
         });
         if (!res.ok) throw new Error("Failed");
         const json = await res.json();
         return json.data as SaleDetail;
     } catch (e) {
+        return null;
+    }
+}
+
+/**
+ * Search sales by invoice number (ticket_number or sale id).
+ * Uses history search; backend should match search against ticket_number and/or id.
+ */
+export async function getSalesByInvoiceNumber(invoiceNumber: string): Promise<SaleHistoryItem[]> {
+    if (!invoiceNumber.trim()) return [];
+    try {
+        const res = await getSalesHistory(1, 50, { search: invoiceNumber.trim() });
+        if (!res?.data?.length) return [];
+        const term = invoiceNumber.trim().toLowerCase();
+        return res.data.filter(
+            (s) =>
+                String(s.ticket_number) === invoiceNumber.trim() ||
+                String(s.id) === invoiceNumber.trim() ||
+                String(s.ticket_number).toLowerCase().includes(term) ||
+                String(s.id).toLowerCase().includes(term)
+        );
+    } catch {
+        return [];
+    }
+}
+
+/**
+ * Refund a full invoice (whole sale). Backend should reverse the sale and update analytics
+ * so that discounted amounts are correctly reflected in reports.
+ */
+export async function refundInvoice(saleId: number): Promise<{ ok: boolean; message?: string }> {
+    try {
+        const res = await fetch(`${API_BASE}/sales/${saleId}/refund`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+        });
+        if (!res.ok) {
+            const text = await res.text();
+            return { ok: false, message: text || res.statusText };
+        }
+        return { ok: true };
+    } catch (e) {
+        return { ok: false, message: e instanceof Error ? e.message : "Request failed" };
+    }
+}
+
+/** Single refund history record (who refunded which invoice and when). */
+export interface RefundHistoryItem {
+    id: number;
+    sale_id: number;
+    ticket_number: number;
+    refunded_at: string;
+    refunded_by: string;   // user name who performed refund
+    refunded_by_id?: number;
+    customer_name: string | null;
+    final_amount: number;
+    discount_value?: number;
+}
+
+export interface RefundHistoryResponse {
+    data: RefundHistoryItem[];
+    meta?: { current_page: number; per_page: number; total_items: number; total_pages: number };
+}
+
+/** Fetch list of refunded invoices for admin. */
+export async function getRefundHistory(
+    page: number = 1,
+    limit: number = 20,
+    search?: string
+): Promise<RefundHistoryResponse | null> {
+    try {
+        const params = new URLSearchParams();
+        params.append("page", String(page));
+        params.append("limit", String(limit));
+        if (search?.trim()) params.append("search", search.trim());
+        const res = await fetch(`${API_BASE}/sales/refunds?${params.toString()}`, { cache: "no-store" });
+        if (!res.ok) return null;
+        const json = await res.json();
+        return { data: json.data ?? [], meta: json.meta };
+    } catch {
         return null;
     }
 }

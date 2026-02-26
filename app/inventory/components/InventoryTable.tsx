@@ -12,17 +12,19 @@ interface Props {
     page: number;
     totalPages: number;
     onPageChange: (p: number) => void;
-    onRefresh: () => void; // <--- New prop to trigger refresh after delete
+    onRefresh: () => void;
+    returnQuery?: string; // preserve page/filters when opening define-item so Back restores view
 }
 
-export default function InventoryTable({ items, loading, page, totalPages, onPageChange, onRefresh }: Props) {
+export default function InventoryTable({ items, loading, page, totalPages, onPageChange, onRefresh, returnQuery }: Props) {
     const { t } = useSettings();
     const router = useRouter();
     const [deletingId, setDeletingId] = useState<number | null>(null);
 
     const handleEdit = (barcode: string) => {
-        // Navigate to Define Item page with ?scan=BARCODE
-        router.push(`/define-item?scan=${barcode}`);
+        const base = `/define-item?scan=${encodeURIComponent(barcode)}&from=inventory`;
+        const url = returnQuery ? `${base}&${returnQuery}` : base;
+        router.push(url);
     };
 
     const handleDelete = async (id: number) => {
@@ -64,7 +66,7 @@ export default function InventoryTable({ items, loading, page, totalPages, onPag
                     </div>
                 )}
 
-                <table className="w-full text-left border-collapse min-w-[700px]">
+                <table className="w-full text-left border-collapse min-w-[900px]">
                     <thead className="bg-gray-100 border-b border-gray-400 sticky top-0 z-20 shadow-sm">
                         <tr>
                             <th className="p-2 border-r border-gray-300 text-xs font-bold uppercase w-12 text-center">
@@ -82,8 +84,17 @@ export default function InventoryTable({ items, loading, page, totalPages, onPag
                             <th className="p-2 border-r border-gray-300 text-xs font-bold uppercase w-24 text-center">
                                 {t("inventory.table.unit")}
                             </th>
-                            <th className="p-2 border-r border-gray-300 text-xs font-bold uppercase text-right w-24">
+                            <th className="p-2 border-r border-gray-300 text-xs font-bold uppercase text-right w-20">
+                                {t("inventory.table.cost")}
+                            </th>
+                            <th className="p-2 border-r border-gray-300 text-xs font-bold uppercase text-right w-20">
                                 {t("inventory.table.sell_price")}
+                            </th>
+                            <th className="p-2 border-r border-gray-300 text-xs font-bold uppercase text-right w-20">
+                                {t("inventory.table.whl_price")}
+                            </th>
+                            <th className="p-2 border-r border-gray-300 text-xs font-bold uppercase text-right w-20">
+                                {t("inventory.table.pkt_price")}
                             </th>
                             <th className="p-2 border-r border-gray-300 text-xs font-bold uppercase text-center w-20">
                                 {t("inventory.table.stock")}
@@ -100,7 +111,7 @@ export default function InventoryTable({ items, loading, page, totalPages, onPag
                     </thead>
                     <tbody className="divide-y divide-gray-200 text-sm">
                         {items.length === 0 ? (
-                            <tr><td colSpan={9} className="p-8 text-center text-gray-500 italic">
+                            <tr><td colSpan={11} className="p-8 text-center text-gray-500 italic">
                                 {t("inventory.table.no_data")}
                             </td></tr>
                         ) : (
@@ -135,8 +146,17 @@ export default function InventoryTable({ items, loading, page, totalPages, onPag
                                             {getUnitLabel(item.unit_type)}
                                         </td>
 
+                                        <td className="p-2 border-r border-gray-100 text-right font-mono text-gray-700">
+                                            {(item.cost_price ?? 0).toLocaleString()}
+                                        </td>
                                         <td className="p-2 border-r border-gray-100 text-right font-mono font-bold text-black">
-                                            {(item.single_price || 0).toLocaleString()}
+                                            {(item.single_price ?? 0).toLocaleString()}
+                                        </td>
+                                        <td className="p-2 border-r border-gray-100 text-right font-mono text-gray-700">
+                                            {(item.wholesale_price ?? 0).toLocaleString()}
+                                        </td>
+                                        <td className="p-2 border-r border-gray-100 text-right font-mono text-gray-700">
+                                            {(item.packet_price ?? 0).toLocaleString()}
                                         </td>
 
                                         <td className={`p-2 border-r border-gray-100 text-center font-bold ${isLowStock ? "text-red-600 bg-red-50" : "text-green-700"}`}>

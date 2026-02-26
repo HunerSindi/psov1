@@ -63,6 +63,27 @@ export const salesHistoryTranslations = {
         },
         print: {
             totals_for_list: "Totals for this list"
+        },
+        refund: {
+            title: "Refund Invoice",
+            search_placeholder: "Invoice or ticket number",
+            search_btn: "Search",
+            no_results: "No invoice found.",
+            select_invoice: "Select an invoice below to refund",
+            refund_btn: "Refund this invoice",
+            confirm_refund: "Refund this entire invoice? Discounts will be reversed in analytics.",
+            success: "Invoice refunded successfully.",
+            error: "Refund failed."
+        },
+        refund_history: {
+            title: "Refund History",
+            invoice: "Invoice",
+            date_refunded: "Date refunded",
+            refunded_by: "Refunded by",
+            customer: "Customer",
+            amount: "Amount",
+            no_records: "No refunds yet.",
+            loading: "Loading..."
         }
     },
     ar: {
@@ -129,6 +150,27 @@ export const salesHistoryTranslations = {
         },
         print: {
             totals_for_list: "مجاميع هذه القائمة"
+        },
+        refund: {
+            title: "استرداد فاتورة",
+            search_placeholder: "رقم الفاتورة أو الوصل",
+            search_btn: "بحث",
+            no_results: "لم يتم العثور على فاتورة.",
+            select_invoice: "اختر فاتورة للاسترداد",
+            refund_btn: "استرداد هذه الفاتورة",
+            confirm_refund: "استرداد كامل الفاتورة؟ سيتم عكس الخصومات في التقارير.",
+            success: "تم استرداد الفاتورة بنجاح.",
+            error: "فشل الاسترداد."
+        },
+        refund_history: {
+            title: "سجل الاسترداد",
+            invoice: "الفاتورة",
+            date_refunded: "تاريخ الاسترداد",
+            refunded_by: "استرد بواسطة",
+            customer: "الزبون",
+            amount: "المبلغ",
+            no_records: "لا توجد استردادات.",
+            loading: "جاري التحميل..."
         }
     },
     ku: {
@@ -195,6 +237,27 @@ export const salesHistoryTranslations = {
         },
         print: {
             totals_for_list: "کۆی گشتی بۆ ئەم لیستە"
+        },
+        refund: {
+            title: "گەڕاندنەوەی پسوولە",
+            search_placeholder: "ژمارەی پسووڵە یان وەسڵ",
+            search_btn: "گەڕان",
+            no_results: "هیچ پسوولەیەک نەدۆزرایەوە.",
+            select_invoice: "پسوولەیەک هەڵبژێرە بۆ گەڕاندنەوە",
+            refund_btn: "گەڕاندنەوەی ئەم پسوولەیە",
+            confirm_refund: "گەڕاندنەوەی تەواوی پسوولە؟ داشکاندنەکان لە ڕاپۆرتدا دەگەڕێنرێتەوە.",
+            success: "پسوولە بە سەرکەوتوویی گەڕێندرایەوە.",
+            error: "گەڕاندنەوە سەرکەوتوو نەبوو."
+        },
+        refund_history: {
+            title: "مێژووی گەڕاندنەوە",
+            invoice: "پسوولە",
+            date_refunded: "بەرواری گەڕاندنەوە",
+            refunded_by: "گەڕێندرایەوە لەلایەن",
+            customer: "کڕیار",
+            amount: "بڕ",
+            no_records: "هیچ گەڕاندنەوەیەک نییە.",
+            loading: "چاوەڕوانبن..."
         }
     },
     ku_bd: {
@@ -261,6 +324,27 @@ export const salesHistoryTranslations = {
         },
         print: {
             totals_for_list: "کۆیا گشتی بۆ ڤێ لیستێ"
+        },
+        refund: {
+            title: "گەڕاندنەوەی پسوولە",
+            search_placeholder: "ژمارەیا پسوولێ یان وەسڵێ",
+            search_btn: "لێگەڕیان",
+            no_results: "چ پسوولە نەهاتنە دیتن.",
+            select_invoice: "پسوولەیەک هەڵبژێرە بۆ گەڕاندنەوە",
+            refund_btn: "گەڕاندنەوەی ڤێ پسوولێ",
+            confirm_refund: "گەڕاندنەوەی تەواویا پسوولێ؟ داشکاندن لە ڕاپۆردا دەگەڕێنرێنەوە.",
+            success: "پسوولە ب سەرکەوتویی گەڕێندرایەوە.",
+            error: "گەڕاندنەوە نەسەرکەوت."
+        },
+        refund_history: {
+            title: "مێژوویا گەڕاندنەوەی",
+            invoice: "پسوولە",
+            date_refunded: "رێکەفتێ گەڕاندنەوە",
+            refunded_by: "گەڕێندرایەوە لەلایەن",
+            customer: "کڕیار",
+            amount: "بڕ",
+            no_records: "چ گەڕاندنەوە نییە.",
+            loading: "بارکرن..."
         }
     }
 };

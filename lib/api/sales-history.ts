@@ -104,7 +104,17 @@ export interface SaleDetail {
         price: number;
         quantity: number;
         subtotal: number;
+        /** Cost price per unit (admin only) */
+        cost_price?: number;
+        /** Total cost for this line (admin only) */
+        cost?: number;
+        /** Profit for this line (admin only) */
+        profit?: number;
     }[];
+    /** Total cost of sale (admin only) */
+    total_cost?: number;
+    /** Total profit of sale (admin only) */
+    total_profit?: number;
 }
 
 export async function getSaleDetail(id: number) {

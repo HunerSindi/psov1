@@ -27,11 +27,60 @@ export interface Item {
     // Barcodes
     barcodes: string[];
 
+    // Optional: company and category (both can be null)
+    company_id?: number | null;
+    category_id?: number | null;
     // Optional discount
     discount_type?: string;
     discount_value?: number;
     discount_start_date?: string;
     discount_end_date?: string;
+}
+
+export interface ProductCategory {
+    id: number;
+    name: string;
+}
+
+/** GET product categories for define-item. Backend: see update_define_item_api.md */
+export async function getProductCategories(): Promise<ProductCategory[]> {
+    try {
+        const res = await fetch(`${API_BASE}/items/categories`, { cache: "no-store" });
+        if (!res.ok) return [];
+        const json = await res.json();
+        return Array.isArray(json.data) ? json.data : Array.isArray(json) ? json : [];
+    } catch (e) {
+        console.error("getProductCategories", e);
+        return [];
+    }
+}
+
+/** POST create a product category. Backend: see update_define_item_api.md */
+export async function createProductCategory(name: string): Promise<ProductCategory | null> {
+    try {
+        const res = await fetch(`${API_BASE}/items/categories`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name: name.trim() }),
+        });
+        if (!res.ok) return null;
+        const json = await res.json();
+        return json.data ?? json ?? null;
+    } catch (e) {
+        console.error("createProductCategory", e);
+        return null;
+    }
+}
+
+/** DELETE a product category. Backend: see update_define_item_api.md */
+export async function deleteProductCategory(id: number): Promise<boolean> {
+    try {
+        const res = await fetch(`${API_BASE}/items/categories/${id}`, { method: "DELETE" });
+        return res.ok;
+    } catch (e) {
+        console.error("deleteProductCategory", e);
+        return false;
+    }
 }
 
 // GET ITEM BY BARCODE

@@ -12,9 +12,11 @@ export interface LocalItem {
     name: string;
     barcode: string;
     price: number;
-    unitType: string; // <--- NEW FIELD ("single", "packet", etc.)
+    unitType: string;
     color?: string;
     image?: string;
+    /** Display order within category (lower = first). Optional for backwards compat. */
+    order?: number;
 }
 
 class EasyAccessDB extends Dexie {

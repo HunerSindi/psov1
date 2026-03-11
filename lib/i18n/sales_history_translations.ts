@@ -22,6 +22,10 @@ export const salesHistoryTranslations = {
             actions: "Actions",
             print_invoice: "Print A4",
             print_pos: "Print POS",
+            cost: "Cost",
+            profit: "Profit",
+            total_cost: "Total Cost",
+            total_profit: "Total Profit",
         },
         filters: {
             search_label: "Search",
@@ -109,6 +113,10 @@ export const salesHistoryTranslations = {
             actions: "إجراءات",
             print_invoice: "طباعة A4",
             print_pos: "طباعة وصل",
+            cost: "التكلفة",
+            profit: "الربح",
+            total_cost: "إجمالي التكلفة",
+            total_profit: "إجمالي الربح",
         },
         filters: {
             search_label: "بحث",
@@ -196,6 +204,10 @@ export const salesHistoryTranslations = {
             actions: "کردارەکان",
             print_invoice: "چاپکردنی A4",
             print_pos: "چاپکردنی وەسڵ",
+            cost: "تێچوو",
+            profit: "قازانج",
+            total_cost: "کۆی تێچوو",
+            total_profit: "کۆی قازانج",
         },
         filters: {
             search_label: "گەڕان",
@@ -283,6 +295,10 @@ export const salesHistoryTranslations = {
             actions: "کردار",
             print_invoice: "چاپکرنا A4",
             print_pos: "چاپکرنا وەسڵێ",
+            cost: "تێچوو",
+            profit: "قازانج",
+            total_cost: "کۆیا تێچووی",
+            total_profit: "کۆیا قازانجی",
         },
         filters: {
             search_label: "لێگەڕیان",
